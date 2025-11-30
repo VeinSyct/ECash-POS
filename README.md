@@ -10,15 +10,16 @@ Powered by a revolutionary **entropy–chaos algorithm**, ECash POS enables tran
 
 <img width="729" height="408" alt="image" src="https://github.com/user-attachments/assets/5b4147aa-9f8d-4d2b-9295-56ede5a6126e" />
 
-Screenshot #1: Settings - account no., protocol no., account name, currency and account name
+**Screenshot #1:** Settings - account no., protocol no., account name, currency and account name
 
 <img width="731" height="409" alt="image" src="https://github.com/user-attachments/assets/c6c5f9ec-8abe-4823-8a5d-5f9a953033a2" />
 
-Screenshot #2: Balance - displays selected currency's balance
+**Screenshot #2:** Balance - displays selected currency's balance
 
 <img width="729" height="408" alt="image" src="https://github.com/user-attachments/assets/cae669a0-7f73-4309-8c3a-bf01e04fa171" />
 
-Screenshot #3: Options - share account QR code, scane QR code and transaction history
+**Screenshot #3:** Options - share account QR code, scane QR code and transaction history
+
 
 ---
 
