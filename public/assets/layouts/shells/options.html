@@ -1,0 +1,269 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    :root {
+        --border-radius: 12px;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .features {
+        margin: 0 auto;
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        max-width: 90vw;
+    }
+    @media only screen and (max-width:480px) {
+        .centered {
+            padding: 4rem 0 2rem;
+            min-height: calc(100% - 64px);
+        }
+        .features {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .centered {
+            padding: 2rem 0 0;
+            min-height: calc(100% - 42px);
+        }
+        .features {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+        .feature p {
+            font-size: 12px;
+        }
+    }
+    .feature {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%);
+        transition: all 2s ease;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+    }
+    .feature:hover {
+        background: linear-gradient(
+                4deg,
+                rgba(0, 0, 0, .25) 0%,
+                rgba(0, 0, 0, .13) 36%,
+                rgba(255, 255, 255, .03) 40%,
+                rgba(0, 0, 0, .10) 80%,
+                rgba(0, 0, 0, .05) 100%
+            );
+        transform: translateY(-6px);
+    }
+    .feature:active {
+        background: transparent;
+        transform: translateY(2px);
+    }
+    .feature h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    .feature i,
+    .feature p {
+        text-align: center;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+    }
+    .modal-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        text-decoration: none;
+        color: white;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        fill: currentColor;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+        transition: all .3s ease;
+    }
+    .modal-icon:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+    }
+    .modal-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+    }
+    .opt-icon {
+        position: absolute;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
+        pointer-events: none;
+    }
+    .opt-icon span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        text-decoration: none;
+        color: #3a3a3a;
+        border-radius: 1rem;
+        transition: all .3s ease;
+        pointer-events: auto;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+    .opt-icon span:hover {
+        color: white;
+        transform: translateY(-2px);
+        background: rgba(14, 30, 37, .64);
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    }
+    .opt-icon span:active {
+        color: white;
+        background: transparent;
+        box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    }
+    .opt-button {
+        padding: 6px;
+    }
+    .fa {
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+    }
+</style>
+<div class="centered">
+    <div class="features">
+        <div class="feature glassy-button modal-frame" onmouseenter="if (!_ux.mobile) showBtn({ e: this })" ontouchstart="if (_ux.mobile) showBtn({ e: this })">
+            <div class="modal-front"></div>
+            <div class="modal-overlay"></div>
+            <i class="fa fa-qrcode fa-2x"></i>
+            <h3>
+                <span class="metallic-text gold-text" data-gold="Share">Share</span>
+                <span class="metallic-text silver-text" data-silver="QR" >QR</span>
+            </h3>
+            <p>Show QR codes for ecash users to scan.</p>
+            <div class="opt-icon">
+                <span class="modal-icon" onclick="delete localStorage.transfer; loadPage({ shells: ['showqr'], scroll: 0 })">
+                    <i class="fa fa-qrcode fa-3x"></i>
+                </span>
+            </div>
+        </div>
+        <div class="feature glassy-button modal-frame" onmouseenter="if (!_ux.mobile) showBtn({ e: this })" ontouchstart="if (_ux.mobile) showBtn({ e: this })">
+            <div class="modal-front"></div>
+            <div class="modal-overlay"></div>
+            <i class="fa fa-object-group fa-2x"></i>
+            <h3>
+                <span class="metallic-text gold-text" data-gold="Scan">Scan</span>
+                <span class="metallic-text silver-text" data-silver="QR" >QR</span>
+            </h3>
+            <p>Open camera to scan ecash QR codes.</p>
+            <div class="opt-icon">
+                <span class="modal-icon opt-button" onclick="loadPage({ shells: ['scanqr'], scroll: 0 })">
+                    <i class="fa fa-object-group fa-3x"></i>
+                </span>
+            </div>
+        </div>
+        <div class="feature glassy-button modal-frame" onmouseenter="if (!_ux.mobile) showBtn({ e: this })" ontouchstart="if (_ux.mobile) showBtn({ e: this })">
+            <div class="modal-front"></div>
+            <div class="modal-overlay"></div>
+            <i class="fa fa-history fa-2x"></i>
+            <h3>
+                <span class="metallic-text gold-text" data-gold="Transactions">Transactions</span>
+            </h3>
+            <p>Transfer history between you & other users.</p>
+            <div class="opt-icon">
+                <span class="modal-icon" onclick="loadPage({ shells: ['transactions'], scroll: 0 })">
+                    <i class="fa fa-history fa-3x"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let showBtn = (d) => {
+        d.f = document.getElementsByClassName("opt-icon");
+        for (let i in d.f)
+            if (d.f[i].style)
+                d.f[i].style.display = "none";
+        d.e.getElementsByClassName("opt-icon")[0].style.display='flex'
+    },
+    logOut = (d) => {
+        localStorage.dialog = JSON.stringify({
+            message: `Do you want to exit ecash now?`,
+            buttons: {
+                reset: {
+                    text: `<span><i class="fa fa-sign-out" style="margin-right: 12px"></i> Exit</span>`,
+                    action: `let u=JSON.parse(localStorage.user);delete u.opened.ecash;localStorage.user=JSON.stringify(u);`,
+                    shells: `['unlock']`,
+                    scroll: 0,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

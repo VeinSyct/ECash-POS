@@ -1,0 +1,323 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/unlock.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .modal-frame {
+        border-radius: 50%;
+    }
+</style>
+<body></body>
+<script src="assets/js/index.js"></script>
+<script>
+    let shapeButtons = (d) => {
+        for (let i = 0; i < d.j.length; i++)
+            d.l += !i
+                ? `<label for='unlock-open' class='unlock-button unlock-open-button modal-frame' onclick='showHideShapeButtons({});verifyCodeInputs(this)' id='unlock-button'><i class='fa fa-${d.j[i]}'></i></label>`
+                : `<a class='unlock-button unlock-item modal-frame' onclick='verifyCodeInputs(this)' style='display: none'><i class='fa fa-${d.j[i]}'></i></a>`;
+        return d.l;
+    },
+    showHideShapeButtons = (d) => {
+        d.s = document.querySelectorAll(".unlock-item");
+        for (let i in d.s)
+            if (d.s[i].style)
+                d.s[i].style.display = d.s[i].style.display == "flex" ? "none" : "flex";
+    },
+    verifyCodeInputs = (d) => {
+        d.c = d.getElementsByTagName("i")[0].className.replace("fa fa-", "").slice(-2);
+        d.u = `<i class='fa fa-lock'></i>`;
+        delete _ul.user.opened.ecash;
+        if (_ul.user.unlock) {
+            _ul.user.trial = _ul.user.trial === undefined ? 5 : _ul.user.trial;
+            if (_ul.user.trial > 0) {
+                d.u = `<i class='fa fa-unlock'></i>`;
+                if (d.c.match(/(ck)/)) {
+                    if (_ul.code != "") {
+                        if (_ul.code == atob(_ul.user.unlock)) {
+                            d.t = `<i class='fa fa-unlock'></i> unlocked`;
+                            d.u = `<i class='fa fa-check'></i>`;
+                            _ul.user.trial = 5;
+                            _ul.user.opened.ecash = !0;
+                            setTimeout(() => loadPage({ shells: _ul.shells, scroll: _ul.scroll }), 1);
+                        } else {
+                            _ul.user.trial--;
+                            d.t = `Wrong <i class='fa fa-unlock'></i> shapes, you have ` + (_ul.user.trial > 1 ? _ul.user.trial + ` more tries.` : _ul.user.trial > 0 ? `one last try.` : `no more try.`);
+                            d.u = `<i class='fa fa-lock'></i>`;
+                        }
+                        _ul.code = "";
+                    }
+                } else _ul.code += d.c;
+            } else {
+                document.getElementById("unlock-button").disabled = !0;
+                d.t = `Too many <i class='fa fa-unlock'></i> tries!`;
+                d.u = `<i class='fa fa-close'></i>`;
+            }
+            localStorage.user = JSON.stringify(_ul.user);
+        } else {
+            if (d.c.match(/(ck|it)/)) {
+                if (_ul.code != "") {
+                    if (!_ul.confirm) {
+                        _ul.confirm = _ul.code;
+                        d.t = `Confirm your <i class='fa fa-unlock'></i> shapes`;
+                    } else if (_ul.confirm == _ul.code) {
+                        _ul.user.unlock = btoa(_ul.code);
+                        localStorage.user = JSON.stringify(_ul.user);
+                        localStorage.dialog = JSON.stringify({
+                            message: `You have set your unlock <i class='fa fa-unlock'></i> shapes.`,
+                            buttons: {
+                                dismiss: {
+                                    text: `<span><i class="fa fa-sign-in" style="margin-right: 12px"></i> Enter</span>`,
+                                    shells: `['settings', 'balance', 'options']`,
+                                    scroll: 1,
+                                    reset: !0
+                                }
+                            },
+                            back: {
+                                shells: `['unlock']`,
+                                scroll: 0,
+                                reset: !0
+                            }
+                        });
+                        loadPage({ shells: ['dialog'], scroll: 0 });
+
+                    } else d.t = `Your <i class='fa fa-unlock'></i> shapes did not match!`;
+                    _ul.code = _ul.shapes = "";
+                } else d.t = `Select your <i class='fa fa-unlock'></i> shapes`;
+            } else {
+                _ul.code += d.c;
+                _ul.shapes += d.innerHTML.trim() + " ";
+                d.t = "[ " + _ul.shapes + " ]";
+                d.u = `<i class='fa fa-edit'></i>`;
+            }
+        }
+        if (d.t) document.getElementById("action-text").innerHTML = d.t;
+        if (d.u) document.getElementById("unlock-button").innerHTML = d.u;
+    },
+    _ul = { code:"", shapes:"", user: localStorage.user ? JSON.parse(localStorage.user) : { agreed: {}, opened: {} }, shells: ["settings", "balance", "options"], scroll: 1 };
+    if (!_ul.user.agreed.ecash) {
+        localStorage.dialog = JSON.stringify({
+            message: `
+                <h2>
+                    User Agreement, Offline eℂash
+                </h2>
+                <br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ PRE-USE CHECKLIST, MANDATORY ACKNOWLEDGEMENT:</strong><br>
+                        You must scroll through all items and confirm each before clicking <strong>"I Agree"</strong>:
+                    </p>
+                    <div class="chk-scroll font-numerical">
+                        <ul>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I understand that eℂash is <strong>fully offline</strong> and exists only on my device.
+                            </li>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I understand there is <strong>no online backup</strong>, no transferable files, and no central storage.
+                            </li>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I acknowledge that any loss, deletion, corruption, or lost credentials is entirely my responsibility.
+                            </li>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I understand that the app and its representatives <strong>cannot restore access</strong> under any circumstance.
+                            </li>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I understand that lost, deleted, or inaccessible eℂash due to negligence, forgotten passcodes, or misuse is <strong>permanent</strong>.
+                            </li>
+                            <li>
+                                <input type="checkbox" class="agree-chk"> I understand that attempting to bypass, manipulate, or defraud the system is prohibited and may result in permanent loss or legal action.
+                            </li>
+                        </ul>
+                    </div>
+                </div><br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ WARNING, READ CAREFULLY:</strong><br>
+                        Scroll to the bottom of the agreement and click <strong>"I agree"</strong> only if you fully understand and accept all risks.
+                    </p>
+                    <p>
+                        You are about to use <strong>fully offline eℂash</strong> stored only on your device. There is <strong>no online backup</strong>, no transferable files, and no central storage. <strong>Any loss, deletion, corruption, or lost credentials is entirely your responsibility.</strong> The app and its representatives <strong>cannot restore access</strong> under any circumstance. By continuing, you confirm you understand these risks.
+                    </p>
+                </div><br>
+                <p>
+                    This is a binding electronic agreement between the user ("Client") and the app electronic entity ("Server"). It governs the use of eℂash under the terms set herein.
+                </p><br>
+                <h3>
+                    SCROLL-TO-AGREE ACKNOWLEDGEMENT
+                </h3><br>
+                <p>
+                    By scrolling to the bottom of this agreement and clicking <strong>"I agree"</strong>, you explicitly acknowledge that:
+                </p><br>
+                <ul>
+                    <li>You have read and understood all warnings regarding the offline nature of eℂash.</li>
+                    <li>You understand eℂash exists only on your device and cannot be recovered if lost.</li>
+                    <li>You accept full responsibility for safeguarding access credentials and device security.</li>
+                    <li>You understand that lost, deleted, or inaccessible eℂash due to negligence or forgotten credentials is <strong>permanent</strong>.</li>
+                </ul><br>
+                <h3>
+                    NATURE OF EℂASH
+                </h3><br>
+                <p>
+                    eℂash is <strong>not paper money, not a digital bank account, and does not rely on blockchain or centralized systems.</strong> Each eℂash instance exists as a unique offline construct, accessible only via its designated program and internal reference. <strong>It is tied to your device and cannot be duplicated, transferred, or recovered outside its intended environment.</strong>
+                </p><br>
+                <p>
+                    eℂash data is stored as a collapsed entropic state in your device. It can only re-emerge when accessed through the proper mechanism provided by the app. <strong>If the local storage is cleared, corrupted, or the device is lost, the eℂash is permanently lost.</strong>
+                </p><br>
+                <h3>
+                    RIGHT TO USE
+                </h3><br>
+                <p>
+                    The Client is granted the right to use eℂash solely for offline transactions using the app’s intended interface and mechanisms. The Client shall not attempt to extract, copy, or replicate eℂash outside the designed offline framework.
+                </p><br>
+                <h3>
+                    CLIENT RESPONSIBILITIES
+                </h3><br>
+                <ul>
+                    <li><strong>Device Security:</strong> Ensure your device is secure and accessible only to authorized users.</li>
+                    <li><strong>Local Storage:</strong> Never clear, reset, or alter the app’s local storage containing eℂash.</li>
+                    <li><strong>Passcodes and Access Credentials:</strong> Keep your app passcode or access credentials safe. <strong>If lost or forgotten, the app cannot restore access or recover eℂash.</strong></li>
+                    <li><strong>Transaction Verification:</strong> Confirm offline transactions are correctly received before considering them final.</li>
+                    <li><strong>Backup Awareness:</strong> No online or external backup exists; you are fully responsible for maintaining access.</li>
+                    <li><strong>Negligence:</strong> Any loss caused by careless handling, accidental deletion, or misuse is solely the Client’s responsibility.</li>
+                </ul><br>
+                <h3>
+                    LIMITATION OF LIABILITY
+                </h3><br>
+                <p>
+                    The app and its representatives shall not be liable for any loss, damage, or claim arising from:
+                </p><br>
+                <ul>
+                    <li>Device loss, theft, damage, or failure.</li>
+                    <li>Accidental deletion or corruption of local storage.</li>
+                    <li>Loss of access credentials, passcodes, or any method to open the app.</li>
+                    <li>Improper offline transaction handling.</li>
+                    <li>Unauthorized attempts to duplicate or transfer eℂash outside the app.</li>
+                </ul><br>
+                <p>
+                    The Client hereby indemnifies and holds the app harmless from any losses, liabilities, or damages related to eℂash misuse, loss, or forgotten access credentials.
+                </p><br>
+                <h3>
+                    CAUTIONS AND BEST PRACTICES
+                </h3><br>
+                <ul>
+                    <li>Keep your device physically secure at all times.</li>
+                    <li>Do not attempt to copy, export, or manipulate eℂash outside its intended environment.</li>
+                    <li>Ensure proper handling of offline transactions before considering them final.</li>
+                    <li>Understand that eℂash is entirely offline; loss of the device, storage, or access credentials equates to permanent loss.</li>
+                    <li>Take local storage seriously; it is the sole repository of your eℂash.</li>
+                    <li><strong>Do not forget your passcode or any access method. Recovery is impossible if lost.</strong></li>
+                    <li><strong>Do not attempt any form of fraud, tampering, or misrepresentation. Any malicious activity may result in permanent loss or legal accountability.</strong></li>
+                </ul><br>
+                <h3>
+                    ACKNOWLEDGEMENT OF RISKS
+                </h3><br>
+                <p>
+                    By using eℂash, the Client fully acknowledges:
+                </p><br>
+                <ul>
+                    <li>eℂash exists only offline and is bound to your device.</li>
+                    <li>There is no online backup or transferable data; offline storage is final.</li>
+                    <li>All responsibilities for safeguarding, accessing, and transferring eℂash lie with the Client.</li>
+                    <li>Lost, deleted, or inaccessible eℂash due to negligence or lost credentials is <strong>entirely the Client’s responsibility.</strong></li>
+                    <li>The app holds no liability for losses due to carelessness, device failure, forgotten passcodes, or mismanagement.</li>
+                </ul><br>
+                <h3>
+                    TERMINATION
+                </h3><br>
+                <p>
+                    This Agreement remains in effect unless terminated by either Party upon written notice. Termination does not affect the Client's responsibility for safeguarding eℂash already in their possession.
+                </p><br>
+                <h3>
+                    ARBITRATION AND DISPUTE RESOLUTION
+                </h3><br>
+                <p>
+                    Any dispute arising from the use of offline eℂash shall first be attempted to resolve amicably within thirty (30) days. If no resolution is reached, disputes shall be resolved under the laws of the Client's local jurisdiction where possible. If the Client is outside any recognized local state or no applicable local law exists, disputes shall be resolved according to appropriate international law or arbitration mechanisms deemed suitable by the app to protect its rights and operations.
+                </p><br>
+                <h3>
+                    GOVERNING LAW
+                </h3><br>
+                <p>
+                    This Agreement governs the use of offline eℂash internationally. The Client acknowledges that eℂash is borderless, and its use is not restricted to any particular state. The app reserves the right to enforce this Agreement and protect its operations under applicable local laws where feasible, or under international legal frameworks if local jurisdiction is not applicable.
+                </p><br>
+                <h3>
+                    ENTIRE AGREEMENT
+                </h3><br>
+                <p>
+                    This document constitutes the full understanding of the Parties regarding offline eℂash usage. No previous agreements, oral or written, supersede this Agreement.
+                </p><br>
+                <p>
+                    <strong>IN WITNESS WHEREOF</strong>, the Client and the app electronic entity have executed this Agreement by their duly authorized representatives. The Client confirms full understanding of the offline nature of eℂash, their responsibilities, and the impossibility of recovery if access is lost.
+                </p><br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ FINAL WARNING:</strong><br>
+                        <strong>Ignoring these warnings does not relieve you of responsibility.</strong>
+                    </p>
+                    <p>
+                        By proceeding, you fully acknowledge that all risks related to the offline eℂash, including loss, deletion, corruption, theft, forgotten passcodes, or misuse, are entirely yours. You understand that the app and its representatives <strong>cannot recover, restore, or replace</strong> any lost eℂash under any circumstances.
+                    </p>
+                    <p>
+                        Even if you claim misunderstanding, negligence, or accidental actions, you remain solely liable for all consequences arising from mishandling or improper use of the offline eℂash.
+                    </p>
+                    <p>
+                        <strong>Any attempt to circumvent these terms or act with fraudulent intent will result in permanent loss and legal accountability.</strong>
+                    </p>
+                </div><br>`,
+            buttons: {
+                decline: {
+                    type: 1,
+                    text: `<span style="white-space:nowrap"><i class="fa fa-times"></i> I decline</span>`,
+                    action: `let u=localStorage.user?JSON.parse(localStorage.user):{agreed:{},opened:{}};delete u.agreed.ecash;delete u.unlock;localStorage.user=JSON.stringify(u);`,
+                    shells: `['faqs']`,
+                    scroll: 0,
+                    reset: !0,
+                    disabled: !0
+                },
+                reset: {
+                    text: `<span style="white-space:nowrap"><i class="fa fa-check"></i> I agree</span>`,
+                    action: `let u=localStorage.user?JSON.parse(localStorage.user):{agreed:{},opened:{}};u.agreed.ecash=!0;localStorage.user=JSON.stringify(u);`,
+                    shells: `['unlock']`,
+                    scroll: 0,
+                    reset: !0,
+                    disabled: !0
+                }
+            },
+            back: {
+                shells: `['faqs']`,
+                scroll: 0,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    } else if (_ul.user.opened.ecash) setTimeout(() => loadPage({ shells: _ul.shells, scroll: _ul.scroll }), 1);
+    else document.body.innerHTML = `<div class='centered-container'><div class='action-text' id='action-text'></div><div class='unlock'><input id='unlock-open' name='unlock-open' class='unlock-open' type='checkbox' />${shapeButtons({ j: ["lock", "circle", "square", "bookmark", "bolt", "star", "certificate"], l: "" })}</div></div>`;
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

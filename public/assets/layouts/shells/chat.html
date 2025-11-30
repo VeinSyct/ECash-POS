@@ -1,0 +1,258 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    .centered {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+    }
+    .calc-display-query {
+        position: fixed;
+        top: 107px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: calc(100vh - 200px);
+        border-radius: 0.8vh;
+        overflow: hidden;
+    }
+    .calc-display-query > div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        font-family: monospace;
+        color: white;
+        border-radius: 0.8vh;
+    }
+    .calc-display-query > * {
+        margin: 0;
+        padding: 0;
+    }
+    .calc-display-query > div > div {
+        position: fixed;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - 80px);
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 18px;
+        font-size: 24px;
+        background:
+            radial-gradient(
+                ellipse 150% 150% at 80% 80%,
+                transparent 40%,
+                rgba(255, 255, 255, .25) 60%,
+                transparent 100%
+            ),
+            radial-gradient(ellipse 150% 150% at 20% 20%, transparent 40%, rgba(0, 0, 0, .25) 60%, transparent 100%),
+            radial-gradient(ellipse 100% 100% at 50% 50%, transparent 25%, rgba(0, 0, 0, .5) 75%),
+            linear-gradient(
+                100deg,
+                hsla(0, 50%, 25%, .25) 0%,
+                hsla(5, 75%, 35%, .25) 15%,
+                hsla(10, 75%, 40%, .25) 25%,
+                hsla(15, 75%, 55%, .25) 35%,
+                hsla(20, 65%, 45%, .25) 40%,
+                hsla(10, 55%, 40%, .25) 50%,
+                hsla(5, 55%, 35%, .25) 65%,
+                hsla(5, 55%, 35%, .25) 70%,
+                hsla(0, 65%, 30%, .25) 85%,
+                hsla(0, 75%, 25%, .25) 100%
+            ),
+            linear-gradient(
+                180deg,
+                hsla(210, 15%, 20%, .5) 0,
+                hsla(220, 25%, 10%, .5) 35%,
+                hsla(235, 25%, 5%, .5) 65%,
+                hsla(0, 0%, 0%, .5) 100%
+            ),
+            linear-gradient(
+                180deg,
+                #0f1214
+            );
+        background-blend-mode: multiply;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-radius: 12px;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+    }
+    .calc-display-query > div > div > input {
+        margin-left: 6px;
+        width: calc(100% - 64px);
+        outline-color: 0;
+        font-size: 24px;
+        color: lightgray;
+        border:none;
+        outline:none;
+        background: 0;
+    }
+    .queries-cont {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        max-height: 100%;
+        color: lightgray;
+        overflow-y: scroll;
+    }
+    .queries-bubble {
+        margin: 6px 2vw;
+        padding-top: 3.6px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+        max-width: 80vw;
+        white-space: normal;
+        color: lightgray;
+        overflow-wrap: break-word;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        backdrop-filter: blur(10px);
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-radius: 12px;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    }
+    .queries-bubble > h3 {
+        margin: 1vh 0;
+    }
+    .queries-bubble > p {
+        margin: 1vh 0;
+        font-size: 16px;
+    }
+    .modal-icon {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 42px;
+        height: 42px;
+        text-decoration: none;
+        color: white;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        fill: currentColor;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+        transition: all .3s ease;
+    }
+    .modal-icon:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+    }
+    .modal-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+    }
+    .modal-icon > i {
+        margin: 0;
+        position: absolute;
+        color: grey;
+        font-size: 22px;
+    }
+    .modal-icon > i:hover {
+        color: #333;
+        font-size: 24px;
+    }
+    .modal-icon > i:active {
+        color: black;
+        font-size: 21px;
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .calc-display-query {
+            top: 64px;
+            height: calc(100vh - 152px);
+        }
+        .queries-bubble {
+            margin: 6px 3vw;
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .calc-display-query {
+            top: 67px;
+            height: calc(100vh - 164px);
+        }
+        .queries-bubble {
+            margin: 6px 2vw;
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .calc-display-query {
+            top: 47px;
+            height: calc(100vh - 136px);
+        }
+        .queries-bubble {
+            margin: 6px 3vw;
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .calc-display-query {
+            top: 47px;
+            height: calc(100vh - 136px);
+        }
+        .queries-bubble {
+            margin: 6px 2vw;
+        }
+    }
+</style>
+<div class="centered">
+    <div class="calc-display-query">
+        <div>
+            <span class="queries-cont"></span>
+            <div>
+                <input type="text" ontouchend="this.focus()" onmouseup="if(!_uz.touch) this.focus()" onkeyup="if(event.keyCode === 13){sendQuery({ m: this.value }); this.value = ''}" placeholder="Type queries here..." />
+                <span class="modal-icon" onclick="sendQuery({ m: document.body.getElementsByTagName('input')[0].value }); document.body.getElementsByTagName('input')[0].value = ''">
+                    <i class="fa fa-send"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let _uz = { e: document.querySelector(".calc-close"), touch: window.matchMedia("(any-hover: none)").matches };
+    if (_uz.e) {
+        _uz.e.addEventListener("click", (e) => {
+            window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "restore-shells",
+                tag: "iframe"
+            });
+        });
+    };
+</script>
+<script src="assets/js/queries.js"></script>
+<script src="assets/js/query.js"></script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

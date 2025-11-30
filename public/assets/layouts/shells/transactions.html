@@ -1,0 +1,721 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+  :root {
+    --border-radius: 12px;
+    --muted: #9da5ab;
+    --accent: #61b2d8;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .emkt-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    color: white;
+    overflow: hidden;
+  }
+  .emkt-main {
+    padding: 96px 18px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    overflow: auto;
+  }
+  .emkt-area {
+    margin: 24px 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .emkt-transactions {
+    flex: 1;
+    display: grid;
+    grid-auto-rows: auto; 
+    gap: 18px;
+    grid-template-columns: repeat(5, 1fr);
+    align-content: start;
+  }
+  @media only screen and (max-width:1480px) and (orientation:landscape) {
+    .emkt-transactions {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  @media only screen and (max-width:480px) {
+    .emkt-transactions {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media only screen and (min-width:769px) and (max-width:1480px) {
+    .emkt-transactions {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media only screen and (min-width:481px) and (max-width:768px) {
+    .emkt-transactions {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .emkt-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 36px);
+    height: fit-content;
+    gap: 8px;
+    color: white;
+    border-radius: 12px;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+    cursor: pointer;
+  }
+  .emkt-card h2,
+  .emkt-card h3,
+  .emkt-card p {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    white-space: normal;
+  }
+  .emkt-card.download {
+    box-shadow: none;
+  }
+  .emkt-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  }
+  .emkt-thumb {
+    max-width: 360px;
+    max-height: 142px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .emkt-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: .76;
+  }
+  .emkt-title {
+    color: white;
+    font-weight: 600;
+  }
+  .emkt-desc {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .emkt-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  .emkt-pagination {
+    flex: 0 0 auto;
+    padding: 12px 18px;
+  }
+  .emkt-pages {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .emkt-page-btn {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-page-btn:hover {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-fg);
+  }
+  .emkt-page-btn:active {
+    background: rgba(255, 64, 129, 0.09);
+    color: skyblue;
+  }
+  .emkt-page-btn.active {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-sw-active);
+  }
+  .emkt-search-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 4, 6, 0.7);
+  }
+  .emkt-search-modal.show {
+    display: flex;
+  }
+  .emkt-search-card {
+    padding: 21px;
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(20px);
+  }
+  .emkt-search-row {
+    margin-top: 24px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .emkt-search-row input {
+    flex: 1;
+    padding: 10px;
+    min-width: 200px;
+    outline: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500px;
+    background: url("assets/images/PEnJm.png"),
+        radial-gradient(
+            ellipse 150% 150% at 80% 80%,
+            transparent 40%,
+            rgba(255, 255, 255, .25) 60%,
+            transparent 100%
+        ),
+        radial-gradient(ellipse 150% 150% at 20% 20%, transparent 40%, rgba(0, 0, 0, .25) 60%, transparent 100%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, transparent 25%, rgba(0, 0, 0, .5) 75%),
+        linear-gradient(
+            100deg,
+            hsla(0, 50%, 25%, .25) 0%,
+            hsla(5, 75%, 35%, .25) 15%,
+            hsla(10, 75%, 40%, .25) 25%,
+            hsla(15, 75%, 55%, .25) 35%,
+            hsla(20, 65%, 45%, .25) 40%,
+            hsla(10, 55%, 40%, .25) 50%,
+            hsla(5, 55%, 35%, .25) 65%,
+            hsla(5, 55%, 35%, .25) 70%,
+            hsla(0, 65%, 30%, .25) 85%,
+            hsla(0, 75%, 25%, .25) 100%
+        ),
+        linear-gradient(
+            180deg,
+            hsla(210, 15%, 20%, .5) 0,
+            hsla(220, 25%, 10%, .5) 35%,
+            hsla(235, 25%, 5%, .5) 65%,
+            hsla(0, 0%, 0%, .5) 100%
+        ),
+        linear-gradient(
+            180deg,
+            #0f1214
+        );
+    background-blend-mode: multiply;
+    color: var(--muted);
+  }
+  .emkt-search-row button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--accent);
+    color: #02121a;
+    cursor: pointer;
+  }
+  .emkt-search-close {
+    margin: -9px -12px 6px;
+    display: block;
+    text-align: right;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-message-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 260px;
+    background: rgba(16, 12, 14, 0.95);
+    border-radius: 10px;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 18px rgba(255, 64, 129, 0.12);
+    opacity: 0;
+    display: none;
+    transition: opacity 0.4s ease;
+  }
+  .emkt-message-modal.show {
+    display: block;
+    opacity: 1;
+  }
+  .emkt-message-modal .emkt-message-close {
+    margin: -9px -6px 0;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+    color: var(--accent);
+  }
+  .modal-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    text-decoration: none;
+    color: #666;
+    box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+    background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+    text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+    backdrop-filter: blur(7px);
+    border-radius: 50%;
+    border-top: .031em solid #fadc88;
+    border-left: .031em solid #9c7625;
+    border-right: .031em solid #9c7625;
+    border-bottom: .031em solid #9c7625;
+    fill: currentColor;
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+  .modal-icon-searchgrid {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    right: 36;
+    top: 142px;
+  }
+  .modal-icon:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+  }
+  .modal-icon:active {
+    box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+  }
+  .stars {
+    color: #666;
+    font-size: 24px;
+  }
+  .stars:hover {
+    color: yellow;
+  }
+  .cart-quantity {
+    position: absolute;
+    right: 0px;
+    top: -12px;
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  /* Tablet portrait */
+  @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+    .modal-icon-searchgrid {
+      right: 24px;
+      top: 96px;
+    }
+    .emkt-main {
+      padding: 96px 18px 12px;
+    }
+  }
+  /* Tablet landscape */
+  @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+    .modal-icon-searchgrid {
+      right: 36px;
+      top: 90px;
+    }
+    .emkt-main {
+      padding: 86px 18px 12px;
+    }
+  }
+  /* Mobile portrait */
+  @media only screen and (max-width: 430px) and (orientation: portrait) {
+    .modal-icon-searchgrid {
+      right: 24px;
+      top: 64px;
+    }
+    .emkt-main {
+      padding: 71px 18px 12px;
+    }
+  }
+  /* Mobile landscape */
+  @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+    .modal-icon-searchgrid {
+      right: 24px;
+      top: 64px;
+    }
+    .emkt-main {
+      padding: 64px 18px 12px;
+    }
+  }
+  .tx-buttons-cont {
+    margin: 12px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .calc-transaction-cont > .tx-buttons-cont {
+    display: none;
+  }
+  @media only screen and (max-width:480px) {
+    .tx-buttons-cont {
+        flex-direction: column;
+    }
+  }
+  @media only screen and (min-width:481px) and (max-width:961px) {
+    .tx-buttons-cont {
+        flex-direction: row;
+    }
+  }
+  .currency-amount {
+    font-family: var(--font-numerical);
+    margin: 10px 0;
+    font-style: normal;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--primary-sw-active);
+    line-height: 1;
+    color: #494949;
+    text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+    animation-duration: .0064s;
+    animation-name: textflicker;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    pointer-events: none;
+  }
+  @keyframes textflicker {
+    from {
+      text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+    }
+    to {
+      text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+    }
+  }
+  .tx-receipt > div {
+    margin-bottom: 36px;
+    padding: 12px 12px 12px 12px;
+    position: relative;
+    color: #555;
+    background: #ddc;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tx-receipt > div:after {
+    position: absolute;
+    display: block;
+    content: " ";
+    height: 24px;
+    width: 100%;
+    left: 0;
+    bottom: -22px;
+    background: linear-gradient(-135deg, #ddc 25px, #ddc 25px, #ddc 25px, transparent 0), linear-gradient(135deg, #ddc 25px, transparent 0);
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-size: 20px 40px;
+    overflow: hidden;
+  }
+</style>
+<div class="grids"></div>
+<div class="emkt-shell">
+  <main class="emkt-main">
+    <div class="emkt-area">
+      <div class="emkt-transactions tx-receipt"></div>
+    </div>
+    <span class="modal-icon-searchgrid">
+      <span class="modal-icon" onclick="document.querySelector('.emkt-search-modal').classList.add('show')">
+        <i class="fa fa-search"></i>
+      </span>
+      <span class="modal-icon" onclick="_uz.toggleGrid({ e: this })">
+        <i class="fa fa-list"></i>
+      </span>
+    </span>
+  </main>
+  <div class="emkt-pagination">
+    <div class="emkt-pages"></div>
+  </div>
+  <div class="emkt-search-modal">
+    <div class="emkt-search-card modal-frame">
+      <div class="emkt-search-close modal-icon" data-action="close-search" style="position: absolute; right: 24px">✕</div>
+      <div class="emkt-search-row">
+        <input class="emkt-search-input" placeholder="Search item..." />
+        <a onclick="_uz.searchWord({})">
+          <i class="fa fa-search" style="margin-left: 12px; font-size: 21px"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="emkt-message-modal">
+    <div class="emkt-message-close" data-action="close-notfound">✕</div>
+    <div class="emkt-message-modal-text"></div>
+  </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+  let showQRCode = (d) => {
+    try {
+      localStorage.showqr = d.hash;
+      loadPage({ shells: ["showqr"], scroll: 0 });
+    } catch (error) {}
+  },
+  _uz = {
+    user: localStorage.user ? JSON.parse(localStorage.user) : {},
+    products: {
+      items: localStorage.transactions ? JSON.parse(localStorage.transactions) : {}
+    },
+    state: { page: 1, per: 10, view: "grid", query: "", cart: {} },
+    toggleGrid: (d) => {
+      _uz.state.view = _uz.state.view === "grid" ? "list" : "grid";
+      d.e.innerHTML = `<i class="fa fa-${_uz.state.view === "grid" ? "list" : "th"}"></i>`;
+      _uz.render({});
+    },
+    searchWord: (d) => {
+      _uz.state.query = document.querySelector(".emkt-search-input").value;
+      _uz.state.page = 1;
+      _uz.render({});
+    },
+    render: (d) => {
+      d.q = _uz.state.query.trim().toLowerCase();
+      d.filtered = Object.values(_uz.products.items).filter((p) => p.name.toLowerCase().includes(d.q.toLowerCase()) || p.amount.toLowerCase().includes(d.q.toLowerCase()) || p.currency.toLowerCase().includes(d.q.toLowerCase()) || p.number.toLowerCase().includes(d.q.toLowerCase()) || `${p.hash}`.toLowerCase().includes(d.q.toLowerCase()));
+      if (!d.filtered.length) {
+        if (_uz.state.query.length > 420) {
+          localStorage.dialog = JSON.stringify({
+            message: [
+                `Do you want to preview "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>" hash image in QR codes?`,
+                `Would you like to preview the QR code version of "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>"?`,
+                `Want to see how the hash of "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>" looks in a QR code?`,
+                `Do you want to view the hash of "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>" as a QR code image?`,
+                `Would you like to generate a QR code preview for "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>"?`,
+                `Ready to preview "<strong>${`${_uz.state.query}`.slice(0, 15)}...</strong>" as a QR hash image?`
+              ][Math.floor(Math.random() * 5)],
+            buttons: {
+              preview: {
+                text: `<span><i class="fa fa-qr-code" style="margin-right: 12px"></i> Preview</span>`,
+                action: `localStorage.showqr='${_uz.state.query}';`,
+                shells: `['showqr']`,
+                scroll: 0,
+                reset: !0
+              }
+            },
+            back: {
+              shells: `['transactions']`,
+              scroll: 0,
+              reset: !0
+            }
+          });
+          loadPage({ shells: ['dialog'], scroll: 0 });
+        } else {
+          document.querySelector(".emkt-search-modal").classList.remove("show");
+          document.querySelector(".emkt-message-modal-text").innerHTML = `The item <strong>'${_uz.state.query}'</strong> is not found!`;
+          document.querySelector(".emkt-message-modal").classList.add("show");
+          return;          
+        }
+      }
+      document.querySelector(".emkt-message-modal").classList.remove("show");
+      d.start = (_uz.state.page - 1) * _uz.state.per;
+      d.pageItems = d.filtered.slice(d.start, d.start + _uz.state.per);
+      d.e = document.querySelector(".emkt-transactions");
+      if (_uz.state.view === "grid") {
+        d.e.style.display = "grid";
+        d.e.style.gridTemplateColumns = _uz.state.grid;
+        d.e.style.gap = "18px";
+        d.e.innerHTML = d.pageItems.map((p, i) => `
+          <div class='emkt-card' data-id='${p.id = (Math.random() + 1).toString(36).substring(7)}' id='down-${p.id}' onclick='setTimeout(() => { document.getElementById("${p.id}").style.display="flex" }, 120)'>
+            <div class='emkt-thumb'/>
+              <img src='assets/images/qr-code-pos.png'>
+            </div>
+            ${p.amount ? `<h2 class='emkt-title currency-amount'>${p.currency} ${`${p.amount}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>` : ""}
+            <h3><i class="fa fa-user"></i> ${p.incoming ? `${p.loan ? `<strong>LOAN</strong> ` : ""}From` : "To"} <strong class="font-numerical">${p.name}</strong></h3>
+            <p><i class="fa fa-credit-card"></i> <strong class="font-numerical">${p.number}</strong></p>
+            <div class='emkt-meta' style="font-size: 12px">
+              <span class="font-numerical">${p.time}</span>
+              <span class="font-numerical">${p.date}</span>
+            </div>
+            <span class="emkt-meta tx-buttons-cont" id="${p.id}" style="display: none">
+              <span onclick="downloadReciept({ n: '${p.number ? p.number : p.id}', id: '${p.id}' })">
+                <i class="fa fa-download"></i> Download
+              </span>
+              ${p.hash ? `<span onclick="showQRCode({ hash: '${p.hash}' })">
+                <i class="fa fa-qrcode"></i> Show QR
+              </span>  ` : ""}  
+            </span>
+          </div>`).join("");
+      } else {
+        d.e.style.display = "grid";
+        if (d.e.style.gridTemplateColumns != "1fr") {
+          _uz.state.grid = d.e.style.gridTemplateColumns;
+          d.e.style.gridTemplateColumns = "1fr";
+        }
+        d.e.style.gap = "12px";
+        d.e.innerHTML = d.pageItems.map((p) => `
+          <div class='emkt-card' data-id='${p.id = (Math.random() + 1).toString(36).substring(7)}' id='down-${p.id}' onclick='setTimeout(() => { document.getElementById("${p.id}").style.display="flex" }, 120)' style='flex-direction: row'>
+            <div class='emkt-thumb' style='max-width: 36%; flex-shrink: 0'>
+              <img src='assets/images/qr-code.png'/>
+            </div>
+            <div style='flex: 1; display: flex; flex-direction: column; gap:6px; padding-left: 12px'>
+              ${p.amount ? `<h2 class='emkt-title currency-amount'>${p.currency} ${`${p.amount}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>` : ""}
+              <h3><i class="fa fa-user"></i> ${p.incoming ? `${p.loan ? `<strong>LOAN</strong> ` : ""}From` : "To"} <strong class="font-numerical">${p.name}</strong></h3>
+              <p><i class="fa fa-credit-card"></i> <strong class="font-numerical">${p.number}</strong></p>
+              <div class='emkt-meta' style="font-size: 12px">
+                <span class="font-numerical">${p.time}</span>
+                <span class="font-numerical">${p.date}</span>
+              </div>
+              <span class="emkt-meta tx-buttons-cont" id="${p.id}" style="display: none">
+                <span onclick="downloadReciept({ n: '${p.number ? p.number : p.id}', id: '${p.id}' })">
+                  <i class="fa fa-download"></i> Download
+                </span>
+                ${p.hash ? `<span onclick="showQRCode({ hash: '${p.hash}' })">
+                <i class="fa fa-qrcode"></i> Show QR
+              </span>  ` : ""}  
+              </span>
+            </div>
+          </div>`).join("");
+      }
+      d.pages = Math.max(1, Math.ceil(d.filtered.length / _uz.state.per));
+      d.pagesEl = document.querySelector(".emkt-pages");
+      d.pagesEl.innerHTML = "";
+      d.makeBtn = (t, dis, fn, active) => {
+        var b = document.createElement("button");
+        b.textContent = t;
+        b.className = "emkt-page-btn" + (active ? " active" : "");
+        b.disabled = dis;
+        b.onclick = fn;
+        d.pagesEl.appendChild(b);
+      };
+      d.page = _uz.state.page;
+      d.total = d.pages;
+      d.makeBtn("First", d.page === 1, () => { _uz.state.page = 1; _uz.render({}) });
+      d.makeBtn("Prev", d.page === 1, () => { _uz.state.page--; _uz.render({}) });
+      if (d.total <= 4) {
+        for (d.i = 1; d.i <= d.total; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+      } else if (d.page <= 2) {
+        for (d.i = 1; d.i <= 2; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        d.makeBtn(d.total, false, () => { _uz.state.page = d.total; _uz.render({}) }, d.page === d.total);
+      } else if (d.page >= d.total - 1) {
+        d.makeBtn(1, false, () => { _uz.state.page = 1; _uz.render({}) }, d.page === 1);
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        for (d.i = d.total - 1; d.i <= d.total; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+      } else {
+        d.makeBtn(d.page - 1, false, (() => { var i = d.page - 1; return () => { _uz.state.page = i; _uz.render({}) } })(), false);
+        d.makeBtn(d.page, false, (() => { var i = d.page; return () => { _uz.state.page = i; _uz.render({}) } })(), true);
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        d.makeBtn(d.total, false, () => { _uz.state.page = d.total; _uz.render({}) }, d.page === d.total);
+      }
+      d.makeBtn("Next", d.page === d.total, () => { _uz.state.page++; _uz.render({}) });
+      d.makeBtn("Last", d.page === d.total, () => { _uz.state.page = d.total; _uz.render({}) });
+    },
+    create: (t, disabled, fn, cls, btn) => {
+      btn = document.createElement("button");
+      btn.textContent = t;
+      btn.className = "emkt-page-btn" + (cls ? " " + cls : "");
+      btn.disabled = !!disabled;
+      btn.onclick = fn;
+      document.querySelector(".emkt-pages").appendChild(btn);
+    }
+  };
+  document.querySelector('[data-action="close-search"]').onclick = () => document.querySelector(".emkt-search-modal").classList.remove("show");
+  document.querySelector(".emkt-search-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      _uz.state.query = e.target.value;
+      _uz.state.page = 1;
+      _uz.render({});
+    }
+  });
+  document.querySelector('[data-action="close-notfound"]').onclick = () => {
+    document.querySelector(".emkt-message-modal").classList.remove("show");
+    document.querySelector(".emkt-search-input").value = "";
+    _uz.state.query = "";
+    _uz.state.page = 1;
+  };
+  window.downloadReciept = (d) => {
+    _uz.download = !0;
+    d.e = document.createElement("script");
+    d.e.onload = () => {
+      d.x = document.getElementById(`down-${d.id}`);
+      d.x.classList.add("download");
+      d.x.noShow = !0;
+      document.getElementById(`${d.id}`).style.display = "none";
+      html2canvas(d.x).then((canvas) => {
+        d.l = document.createElement("a");
+        d.l.href = canvas.toDataURL("image/png;base64");
+        d.l.download = d.n + ".jpg";
+        d.x.appendChild(d.l);
+        d.l.click();
+        d.x.removeChild(d.l);
+        for (let i = 0, j = document.getElementsByTagName("script"); i < j.length; i++)
+          if (j[i].src && j[i].src.toString().match(/(html2canvas.js)/))
+            j[i].parentNode.removeChild(j[i]);
+        setTimeout(() => { delete _uz.download }, 1200);
+      });
+    };
+    d.e.src = "assets/js/html2canvas.js";
+    document.body.appendChild(d.e);
+  };
+  if (Object.keys(_uz.products.items).length)
+    _uz.render({});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+      window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "pre-loader",
+        show: !1
+      }, "*");
+      window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "branding-icon",
+        hide: !0
+      }, "*");
+      window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "display-balance",
+        hide: !1
+      }, "*");
+      setTimeout(() => {
+        window.parent.postMessage({
+          id: window.frameElement.id,
+          action: "querry-icon",
+          hide: !0
+        }, "*");
+      }, 127);
+    });
+</script>

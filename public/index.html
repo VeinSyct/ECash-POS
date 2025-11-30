@@ -1,0 +1,307 @@
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Full Screen">
+<meta name="pinterest" content="nopin">
+<meta name="referrer" content="origin">
+<meta property="og:type" content="webapp">
+<meta property="og:title" content="eℂash POS">
+<meta property="og:description" content="ECash POS is your premium offline gateway to digital gaming. Enjoy fast, secure cashless transactions while accessing luxury-level entertainment, exciting gameplay, and exclusive high-stakes experiences.">
+<meta property="og:image" content="assets/images/og.jpg">
+<meta property="og:url" content="https://ecashpos.web.app">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eℂash POS">
+<meta name="twitter:description" content="ECash POS is your premium offline gateway to digital gaming. Enjoy fast, secure cashless transactions while accessing luxury-level entertainment, exciting gameplay, and exclusive high-stakes experiences.">
+<meta name="twitter:image" content="assets/images/og.jpg">
+<meta name="twitter:url" content="https://ecashpos.web.app">
+<meta name="description" content="ECash POS is your premium offline gateway to digital gaming. Enjoy fast, secure cashless transactions while accessing luxury-level entertainment, exciting gameplay, and exclusive high-stakes experiences.">
+<meta name="application-name" content="eℂash POS">
+<meta name="keywords" content="casino,online gambling,slots,poker,roulette,high stakes,luxury betting,exclusive games,Play Spin It,VIP casino">
+<meta name="author" content="The Play Makers">
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+<title>eℂash POS</title>
+<link rel="icon" type="image/png" href="./assets/images/favicon.png"/>
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/snap.css" />
+<link rel="stylesheet" href="assets/css/spinit.css" />
+<style>
+    .querry-icon-cont {
+        position: fixed;
+        right: 36px;
+        bottom: 36px;
+        transform-origin: bottom right;
+        animation: floating 3s ease-in-out infinite;
+        scale: 1;
+    }
+    .querry-icon {
+        position: relative;
+        height: 86px;
+        width: 86px;
+        transition: transform .3s ease;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+    }
+    .querry-icon {
+        background: url("assets/images/light bulb.webp");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.45));
+    }
+    .querry-icon:hover {
+        filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.45));
+        transform: scale(1.03);
+    }
+    .querry-icon:active {
+        filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6));
+        transform: scale(0.98);
+    }
+    @keyframes floating {
+        0% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-12px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .querry-icon-cont {
+            right: 24px;
+            bottom: 24px;
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .querry-icon-cont {
+            right: 24px;
+            bottom: 24px;
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .querry-icon-cont {
+            right: 6px;
+            bottom: 6px;
+        }
+        .querry-icon {
+            height: 64px;
+            width: 64px;
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .querry-icon-cont {
+            right: 6px;
+            bottom: 6px;
+        }
+        .querry-icon {
+            height: 64px;
+            width: 64px;
+        }
+    }
+    .branding {
+        position: fixed;
+        top: 12px;
+        left: 19px;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+    }
+    .metallic-text {
+        display: inline-block;
+        margin: 0;
+    }
+    [data-gold] {
+        color: #ac733c;
+    }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) or (-webkit-background-clip: text) {
+        [data-gold] {
+            color: transparent;
+            background-image: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    transparent 45%,
+                    white 50%,
+                    transparent 55%,
+                    transparent 100%
+                ),
+                linear-gradient(
+                    90deg,
+                    #c78c48,
+                    #cf9147 9.4%,
+                    #cf9348 9.4%,
+                    #b2763e 33.6%,
+                    #ad743c 35.7%,
+                    #ac723d 46.9%,
+                    #b0773d 51.7%,
+                    #b0793e 52.1%,
+                    #c4914c 64.6%,
+                    #c99750 68.5%,
+                    #ce9e54 73.2%,
+                    #f4d188
+                );
+            background-position:
+                110% 0%,
+                0 0;
+            background-size:
+                200% auto,
+                auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-animation: metallic-text-shine 2s ease-in-out 2 alternate 2s;
+            animation: metallic-text-shine 2s ease-in-out 2 alternate 2s;
+        }
+    }
+    [data-gold]:before {
+        content: attr(data-gold);
+        color: #f0d8a9;
+        position: absolute;
+        z-index: -1;
+        text-shadow: black 0px .08vw 12px;
+    }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) or (-webkit-background-clip: text) {
+        [data-gold]:after {
+            content: attr(data-gold);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 48%,
+                rgba(98, 16, 0, .5) 50%,
+                transparent 75%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    }
+    [data-silver] {
+        color: #858585;
+    }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) or (-webkit-background-clip: text) {
+        [data-silver] {
+            color: transparent;
+            background-image: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    transparent 45%,
+                    white 50%,
+                    transparent 55%,
+                    transparent 100%
+                ),
+                linear-gradient(
+                    270deg,
+                    #8c8c8c 1.3%,
+                    #999 15%,
+                    #868686 29.6%,
+                    #828282 29.6%,
+                    #7d7d7d 31.8%,
+                    #797979 31.8%,
+                    #6a6a6a 38.9%,
+                    #d3d3d3
+                );
+            background-position:
+                110% 0%,
+                0 0;
+            background-size:
+                200% auto,
+                auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: metallic-text-shine 2s ease-in-out 2 alternate-reverse 2s;
+        }
+    }
+    [data-silver]:before {
+        content: attr(data-silver);
+        color: #fff;
+        position: absolute;
+        z-index: -1;
+        text-shadow: black 0px .08vw 12px;
+    }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) or (-webkit-background-clip: text) {
+        [data-silver]:after {
+            content: attr(data-silver);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 48%,
+                rgba(17, 17, 17, .5) 50%,
+                transparent 75%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    }
+    @-webkit-keyframes metallic-text-shine {
+        0% {
+            background-position:
+                110% 0%,
+                0 0;
+        }
+        100% {
+            background-position:
+                -10% 0%,
+                0 0;
+        }
+    }
+    @keyframes metallic-text-shine {
+        0% {
+            background-position:
+                110% 0%,
+                0 0;
+        }
+        100% {
+            background-position:
+                -10% 0%,
+                0 0;
+        }
+    }
+</style>
+<h1 class="branding" onclick="let e = document.querySelector('.querry-icon-cont'); e.style.display = 'block'; e.style.opacity = 1; loadShells({ shells: _uz.user.opened.ecash ? ['settings', 'balance', 'options'] : ['unlock'], scroll: _uz.user.opened.ecash ? 1 : 0, i: _uz.s, reset: !0 })">
+    <span class="metallic-text gold-text" data-gold="eℂash">eℂash</span>
+    <span class="metallic-text silver-text" data-silver="POS" >POS</span>
+</h1>
+<div id="rithmytic" hidden></div>
+<div class="querry-icon-cont" onclick="_pm.decam.fade(this, 120); loadShells({ shells: ['chat'], scroll: 0, i: _uz.s, reset: !0 })" style="background: url('assets/images/light\ bulb.webp')">
+    <div class="querry-icon"></div>
+</div>
+<div class="pre-loader">
+    <div class="inner one"></div>
+    <div class="inner two"></div>
+    <div class="inner three"></div>
+</div>
+<div class="lcd-wobbley lcd-screen-on">
+    <div class="lcd-content">
+        <nav></nav>
+        <div class="mobile-menu" id="mobileMenu"></div>
+        <div class="snap-container">
+            <div id="shell-0">
+                <div>
+                    <div>
+                        <iframe id="iframe-unlock" src="assets/layouts/shells" hidden></iframe>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script src="assets/js/shells.js"></script>
+<script>
+    window.parent.postMessage({ isLive: !0 }, "*");
+</script>

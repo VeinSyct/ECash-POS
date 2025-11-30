@@ -1,0 +1,369 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .qr-scanner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .progress-bar {
+        position: absolute;
+        -webkit-appearance: none;
+        width: 90vw;
+        height: 2vh;
+        background-color: #4bb1ff03;
+        background-image: linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, .2) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, .2) 50%,
+            rgba(255, 255, 255, .2) 75%,
+            transparent 75%,
+            transparent
+        );
+        background-size: 30px 30px;
+        border-top: .064em solid #fadc88;
+        border-left: .064em solid #9c7625;
+        border-right: .064em solid #9c7625;
+        border-bottom: .064em solid #9c7625;
+        border-radius: 6px;
+        outline: none;
+        opacity: .86;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        -moz-box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+        -webkit-box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+        animation: bar-moves 2s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes bar-moves {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 30px 30px;
+        }
+    }
+    .progress-bar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12vw;
+        height: 2vh;
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-top: .064em solid #fadc88;
+        border-left: .064em solid #9c7625;
+        border-right: .064em solid #9c7625;
+        border-bottom: .064em solid #9c7625;
+        border-radius: 6px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    }
+    .progress-bar::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-top: .064em solid #fadc88;
+        border-left: .064em solid #9c7625;
+        border-right: .064em solid #9c7625;
+        border-bottom: .064em solid #9c7625;
+        border-radius: 6px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    }
+    .qr-hole-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+    .qr-hole-overlay::before {
+        content: "";
+        position: absolute;
+        width: 93vmin;
+        height: 93vmin;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: solid 1200px rgba(0,0,0,0.5);
+        border-radius: 1214px;
+        pointer-events: none;
+    }
+    .qr-hole-overlay::after {
+        content: "";
+        position: absolute;
+        width: 89vmin;
+        height: 89vmin;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background:
+        linear-gradient(#03A9F4,#03A9F4),
+        linear-gradient(90deg, #ffffff33 1px, transparent 0, transparent 19px),
+        linear-gradient(#ffffff33 1px, transparent 0, transparent 19px),
+        linear-gradient(transparent, #2196f387);
+        background-size: 100% 1.5%, 10% 100%, 100% 10%, 100% 100%;
+        background-repeat: no-repeat, repeat, repeat, no-repeat;
+        background-position: 0 0, 0 0, 0 0, 0 0;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 1.5%, 0% 1.5%);
+        opacity: .21;
+        animation: qr-scanner 4.2s infinite linear;
+        -webkit-animation: qr-scanner 4.2s infinite linear;
+        -moz-animation: qr-scanner 4.2s infinite linear;
+        pointer-events: none;
+    }
+    @keyframes qr-scanner {
+        to {
+        background-position: 0 100%,0 0, 0 0, 0 0;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+    }
+    @-webkit-keyframes screen-scanline {
+        to {
+        background-position: 0 100%,0 0, 0 0, 0 0;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+    }
+    @-moz-keyframes screen-scanline {
+        to {
+        background-position: 0 100%,0 0, 0 0, 0 0;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+    }
+    .screen-scanline {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        opacity: 0.09;
+        background: repeating-linear-gradient(#1B2D06, #1B2D06 2px, #8BC34A 2px, #8BC34A 5px);
+        image-rendering: pixelated;
+        animation: screen-scanline 2s linear infinite;
+        -webkit-animation: screen-scanline 2s linear infinite;
+        -moz-animation: screen-scanline 2s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes screen-scanline {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 80px; }
+    }
+    @-webkit-keyframes screen-scanline {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 80px; }
+    }
+    @-moz-keyframes screen-scanline {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 80px; }
+    }
+    .qr-frame {
+        position: absolute;
+        width: 91vmin;
+        height: 91vmin;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+    .qr-frame .corner {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-top: .064em solid #fadc88;
+        border-left: .064em solid #9c7625;
+        border-right: .064em solid #9c7625;
+        border-bottom: .064em solid #9c7625;
+    }
+    .qr-frame .left-top {
+        left: 0px;
+        top: 0px;
+        border-radius: 12px 0px;
+        border-right: none;
+        border-bottom: none;
+    }
+    .qr-frame .left-bottom {
+        left: 0px;
+        bottom: 0px;
+        border-radius: 0px 12px;
+        border-right: none;
+        border-top: none;
+    }
+    .qr-frame .right-top {
+        right: 0px;
+        top: 0px;
+        border-radius: 0px 12px;
+        border-left: none;
+        border-bottom: none;
+    }
+    .qr-frame .right-bottom {
+        right: 0px;
+        bottom: 0px;
+        border-radius: 12px 0px;
+        border-left: none;
+        border-top: none;
+    }
+</style>
+<div id="api-404" hidden></div>
+<div class="centered">
+    <div id="scan-qr-cont" style="display: none">
+        <div id="qr-scanner"></div>
+        <div class="qr-hole-overlay"></div>
+        <div class="qr-frame">
+            <div class="corner left-top"></div>
+            <div class="corner left-bottom"></div>
+            <div class="corner right-top"></div>
+            <div class="corner right-bottom"></div>
+        </div>
+    </div>
+    <input class="progress-bar" type="range" step="1" min="0" max="100" value="0"/>
+</div>
+<script src="./assets/js/ecash.js"></script>
+<script src="assets/js/qr.reader.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    let openApp = (d) => {
+        scanQr({});
+    },
+    windowEvent = (e) => {
+        _uz.v.e.style.transform = `scale(${window.innerWidth / _uz.v.w > window.innerHeight / _uz.v.h ? window.innerWidth / _uz.v.w : window.innerHeight / _uz.v.h})`;
+    },
+    scanQr = (d) => {
+        _uz.qrReader = _uz.qrReader ? _uz.qrReader : {};
+        if (!_uz.qrReader.JsQR) {
+            _uz.qrReader.JsQR = new JsQRScanner(onScan);
+            _uz.qrReader.JsQR.setSnapImageMaxSize(300);
+            if (_uz.qr.interval !== undefined) _uz.qrReader.JsQR.setScanInterval(_uz.qr.interval);
+            d.e = document.getElementById("qr-scanner");
+            if (d.e) _uz.qrReader.JsQR.appendTo(d.e);
+            d.e = document.querySelector(".qrPreviewVideo");
+            d.e.addEventListener('loadedmetadata', () => {
+                _uz.v = {
+                    w: d.e.videoWidth,
+                    h: d.e.videoHeight,
+                    e: d.e
+                };
+                window.parent.postMessage({
+                    id: window.frameElement.id,
+                    action: "pre-loader",
+                    show: !1
+                }, "*");
+                windowEvent({});
+            });
+        }
+        document.getElementById('scan-qr-cont').style.display = 'block';
+    },
+    onScan = (s) => {
+        if (!_uz.z.qrScan.arr.includes(s)) {
+            s = s.replace(/[!\"#$%&]/g, ",").split(",");
+            let j = s[0];
+            s = s.join(",");
+            for (let i = 81; i <= 90; i++)
+                s = s.replace(new RegExp(String.raw`${String.fromCharCode(i)}`, "g"), String.fromCharCode(i - 33));
+            _uz.z.qrScan.arr.push(j + s.slice(j.length));
+            for (let i = 0, j; i < _uz.z.qrScan.arr.length; i++) {
+                j = _uz.z.qrScan.arr[i].split(",");
+                _uz.z.qrScan.hashes[j[2]] = j[0];
+                _uz.z.qrScan.hlen = j[1];
+            }
+            let p = document.getElementsByClassName("progress-bar")[0];
+            if (_uz.z.qrScan.arr.length > 1 && p) {
+                if (!_uz.qrReader.progress) {
+                    _uz.qrReader.progress = { e: p };
+                    if (_uz.qrReader.progress.e) {
+                        _uz.qrReader.progress.e.style.display = "block";
+                        _uz.qrReader.progress.e.max = _uz.z.qrScan.hlen;
+                    }
+                }
+                _uz.qrReader.progress.e.value = Object.keys(_uz.z.qrScan.hashes).length;
+            }
+            _uz.api.contentWindow.postMessage({ action: "ecash-api-hash-assemble", qrScan: _uz.z.qrScan }, _uz.api.src);
+        };
+    },
+    JsQRScannerReady = (d) => {
+        _uz.z.qrScan.ready = !0;
+    };
+    window.addEventListener("resize", windowEvent);
+</script>
+</script>
+<script src="assets/js/index.js"></script>

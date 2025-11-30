@@ -1,0 +1,656 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+	:root {
+		--primary-sw-active: #eeede4;
+		--primary-bg-hover: linear-gradient(135deg, #eeede4, #f0f0f0);
+		--amount-width: 93%;
+	}
+	.centered {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		width: var(--amout-width);
+		max-width: var(--amount-width);
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		overflow: hidden;
+	    animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+	.currency-amount {
+        margin: 10px 0;
+        font-family: var(--font-numerical);
+		display: flex;
+		font-style: normal;
+		font-weight: 700;
+		letter-spacing: 1px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		color: var(--primary-sw-active);
+		line-height: 1;
+		text-shadow:
+            0 0 1px  #1086e8,
+            0 0 2px  #1086e8,
+            0 0 4px  #1086e8,
+            0 0 8px  #1086e8,
+            0 0 12px #1086e8,
+            0 0 20px #1086e8;
+		animation-duration: .005s;
+		animation-name: neon-flicker;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+    @keyframes neon-flicker {
+        0% {
+            text-shadow: 0 0 2px #1086e8, 0 0 6px #1086e8, 0 0 18px #1086e8; filter: brightness(.96);
+        }
+        100% {
+            text-shadow:
+                0 0 1px  #1086e8,
+                0 0 2px  #1086e8,
+                0 0 4px  #1086e8,
+                0 0 8px  #1086e8,
+                0 0 12px #1086e8,
+                0 0 20px #1086e8;
+            filter: brightness(1.07);
+        }
+    }
+	.range-container {
+		position: absolute;
+		width: var(--amount-width);
+		left: 50%;
+		bottom: 45px;
+		transform: translate(-50%);
+	}
+	input[type="range"] {
+		padding: 4px;
+		width: 100%;
+		background: transparent;
+		-webkit-appearance: none;
+		transition: opacity .5s;
+		cursor: pointer;
+	}
+	input[type="range"]::-webkit-slider-thumb {
+		width: 56px;
+		height: 56px;
+		-webkit-appearance: none;
+		color: #666;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+		transition: all .4s cubic-bezier(0.25, .46, .45, .94);
+		border-radius: 5px;
+		cursor: pointer;
+        scale: .8;
+	}
+	input[type="range"]::-webkit-slider-thumb::before {
+		content: "";
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+		transition: left .8s ease;
+	}
+	input[type="range"]::-webkit-slider-thumb:hover::before {
+		left: 100%;
+	}
+	input[type="range"]::-webkit-slider-thumb:hover:hover {
+		/* background: rgba(255, 255, 255, .1); */
+		transition: background .2s ease-in-out;
+		transition: box-shadow .2s ease-out;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+	}
+	input[type="range"]::-webkit-slider-thumb:hover:active {
+		background: var(--primary-bg-hover);
+		border: none;
+		outline: 0;
+		box-shadow: .1px -.1px 4px .5px #ea36af, .1px -.1px 5px .4px #41ffd8;
+	}
+    .gold-edging::-webkit-slider-runnable-track {
+        border-radius: 12px;
+        border-color: white;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #9c7625;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #fadc88;
+        box-shadow:
+        inset 0 .23em .23em #0e0e0e,
+        0 1px 2px #585858;
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255, 128, 171, .1),
+                rgba(128, 216, 255, .1)
+            );
+        backdrop-filter: blur(4px);
+        background-blend-mode: normal, multiply;
+    }
+    .gold-edging::-moz-range-track {
+        border-radius: 12px;
+        border-color: white;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #9c7625;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #fadc88;
+        box-shadow:
+        inset 0 .23em .23em #0e0e0e,
+        0 1px 2px #585858;
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255, 128, 171, .1),
+                rgba(128, 216, 255, .1)
+            );
+        backdrop-filter: blur(4px);
+        background-blend-mode: normal, multiply;
+    }
+	section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+	.dialog-btn {
+        width: 100%;
+        padding: 15px 30px;
+		max-width: 200px;
+		bottom: 30vh;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all .3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+        position: absolute;
+        overflow: hidden;
+        cursor: pointer;
+    }
+	@media only screen and (max-width:480px) {
+        .dialog-btn {
+			bottom: 13vh;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .dialog-btn {
+			bottom: 24vh;
+        }
+    }
+    .dialog-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .dialog-btn:hover::before {
+        left: 0;
+    }
+    .dialog-btn:hover {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    }
+    .dialog-btn:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .dialog-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .metallic-button {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+		bottom: 30vh;
+    }
+    .metallic-button > button {
+        position: relative;
+        padding: 12px 24px;
+        min-width: 200px;
+        font-size: 1.1rem;
+        color: rgba(120, 140, 200, 1);
+        background: 
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-radius: 12px;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        backdrop-filter: blur(3px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.35s ease;
+    }
+    .metallic-button > button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .metallic-button > button:hover {
+        color: #a0c6ff;
+        transform: translateY(-2px) scale(1.03);
+        backdrop-filter: blur(6px) saturate(160%);
+    }
+    .metallic-button > button:hover::before {
+        opacity: 1;
+        animation: metal-shine 1s ease-out forwards;
+    }
+    .metallic-button > button:active {
+        color: rgba(200, 240, 255, 1);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        transform: translateY(0) scale(1);
+    }
+    @keyframes metal-shine {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0.3;
+        }
+        100% {
+            transform: translate(150%, 150%) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .transfer-button {
+            bottom: calc(50% - 142px);
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .transfer-button {
+            bottom: calc(50% - 136px);
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .transfer-button {
+            bottom: calc(50% - 142px);
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .transfer-button {
+            bottom: calc(50% - 136px);
+        }
+    }
+</style>
+<div class="floating-elements">
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+</div>
+<section>
+	<div id="budget-digit-container"></div>
+    <div class="metallic-button transfer-button">
+	    <button onclick="acceptRange({})">Transfer</button>
+    </div>
+</section>
+<script>
+    let getStringDigits = (s) => {
+        return(parseInt((s.replace(/(<([^>]+)>)/gi, "").match(/\d+/g) || "0.00").toString().replace(/,/g, "")) / 100);
+    },
+    toCurrency = (n) => {
+        n = n.toString();
+        var pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(n)) n = n.replace(pattern, "$1,$2");
+        return n;
+    },
+    _uz = {
+        mobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+        z: { digit: { height: 200 }, slider: { single: {} } },
+        container: "budget-digit-container",
+        digit: "budget-digit-display-1",
+        slider: "budget-digit-slider",
+        stepper: "budget-digit-stepper",
+        restore: {},
+        language: { 
+            "PHP": "en-PH",
+        },
+        default: "PHP",
+        local: {
+            account: {
+                amount: 0
+            }
+        },
+        transfer: {}
+    },
+    loadInterface = (d) => {
+        _uz.d = d;
+        return `
+            <div class="centered" style="padding-bottom: 96px">
+                <div id="${d.digit}"
+                    class="currency-amount digital-text"
+                    ontouchstart="frameString({ e: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                    ontouchend="hideRangeSlider({ stepper: '${d.stepper}' })"
+                    onmouseenter="frameString({ e: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                    onmouseleave="hideRangeSlider({ stepper: '${d.stepper}' })"></div>
+                <div class="range-container" id="${d.slider}">
+                    <input class="gold-edging" type="range"
+                        min="0"
+                        max="${d.range.max}"
+                        step=".01"
+                        value="0"
+                        ontouchstart="delete _uz.disabled; document.getElementById('${d.container}').classList.add('noScroll')"
+                        ontouchend="_uz.disabled = !0; this.step = .01; document.getElementById('${d.container}').classList.remove('noScroll')"
+                        onmouseover="this.step = .01; document.getElementById('${d.container}').classList.add('noScroll')"
+                        onmouseleave="_uz.disabled = !0; document.getElementById('${d.container}').classList.remove('noScroll')"
+                        onchange="delete _uz.disabled; updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value }); _uz.transfer.range = _uz.z.range"
+                        ontouchmove="this.step = parseFloat(Math.floor('1e+' + (parseInt(this.value).toString().length - 2) )); updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value })"
+                        onmousemove="updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value })"
+                        onmousedown="delete _uz.disabled; this.step = parseFloat(Math.floor('1e+' + (parseInt(this.value).toString().length - 2) ))"
+                        onmouseup="_uz.disabled = !0"/>
+                </div>
+            </div>`;
+    },
+    loadSlider = (d) => {
+        if (localStorage.user) {
+			_uz.user = JSON.parse(localStorage.user);
+			if (_uz.user.balance) {
+				d.c = document.querySelector(".floating-circle");
+				d.c.innerHTML = _uz.user.balance;
+				d.a = d.c.innerHTML.replace(/,/g,"").match(/\d+/g).toString().replace(",",".").split(".");
+				d.c.innerHTML = "";
+				_uz.local.account.amount = `${d.a[0]}.${d.a[1]}`;
+			}
+		};
+        document.getElementById(_uz.container).innerHTML = loadInterface({
+            container: _uz.container,
+            digit: _uz.digit,
+            slider: _uz.slider,
+            stepper: _uz.stepper,
+            range: { max: _uz.local.account.amount }
+        });
+    };
+    window.updateDigitSlider = (d) => {
+        d.e = document.getElementById(d.digit);
+        d.a = d.e.textContent != "" ? getStringDigits(d.e.textContent) : 0;
+        d.r = document.getElementById(d.slider).getElementsByTagName("input")[0];
+        d.r.step = .01;
+        if (_uz.local.account.amount < d.a) {
+            d.vl.style.display = "none";
+            _uz.z.slider.removing = !0;
+            delete _uz.disabled;
+            updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: _uz.local.account.amount });
+            d.r.value = _uz.z.range = _uz.local.account.amount;
+        } else d.r.value = _uz.z.range = getStringDigits(document.getElementById(d.digit).textContent);
+    };
+    window.updateDigitDisplay = (d) => {
+        if (!_uz.disabled) {
+            d.e = document.getElementById(d.digit);
+            if (d.e) {
+                d.a = d.e.textContent != "" ? getStringDigits(d.e.textContent) : 0;
+                _uz.z.range = d.amount;
+                if (d.e) {
+                    while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+                    _uz.z.slider.single.empty = !0;
+                    d.cy = _uz.local.account.currency ? _uz.local.account.currency : _uz.default;
+                    d.n = (d.amount !== undefined ? d.amount : d.a ? d.a : 0).toString().split(".");
+                    d.e.textContent = toCurrency(`${d.n[0] ? d.n[0] : "0"}.${((d.n[1] ? d.n[1] : "00") + "00").slice(0, 2)}`);
+                    d.w = parseFloat(window.getComputedStyle(d.e).width);
+                    _uz.z.digit.height = (((_uz.z.digit.height * window.innerWidth) / d.w) * parseInt(getComputedStyle(document.getElementById(d.container)).getPropertyValue("--amount-width"))) / 105;
+                    _uz.z.digit.height = _uz.z.digit.height <= 120 ? _uz.z.digit.height : 120;
+                    d.e.style.fontSize = _uz.z.digit.height + "px";
+                }
+            }
+        }
+    };
+    window.frameString = (d) => {
+        if (_uz.z.slider.single.empty) {
+            d.text = d.e.textContent;
+            while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+            d.e.textContent = "";
+            for (let i = 0, j = 0; i < d.text.length; i++)
+                if (d.text.charAt(i) != " " && d.text.charAt(i) != "\n") {
+                    if (d.text.charAt(i) >= "0" && d.text.charAt(i) <= "9") {
+                        d.d = document.createElement("div");
+                        d.d.innerHTML = `<span id="${Math.random().toString(36).slice(2)}"
+                            style="display: flex; justify-content: center; align-items: center; cursor: pointer;"
+                            ontouchstart="showDigitRange({ event: event, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                            onmouseenter="showDigitRange({ event: event, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                            ontouchend="delete _uz.z.slider.active; delete _uz.z.slider.removing"
+                            onmouseleave="delete _uz.z.slider.active; delete _uz.z.slider.removing"><span></span></span>`;
+                        d.d.firstChild.getElementsByTagName("span")[0].textContent = d.text.charAt(i);
+                        d.e.appendChild(d.d.firstChild);
+                        j++;
+                    } else d.e.innerHTML += d.text.charAt(i);
+                }
+            delete _uz.z.slider.single.empty;
+        }
+    };
+    window.showDigitRange = (d) => {
+        if (!_uz.z.slider.removing) {
+            d.d = document.getElementById(d.stepper);
+            if (!d.d) {
+                d.d = document.createElement("div");
+                d.d.innerHTML = `
+                    <div id="${d.stepper}"
+                        ontouchend="hideRangeSlider({ stepper: '${d.stepper}' })"
+                        onmouseleave="hideRangeSlider({ stepper: '${d.stepper}' })"
+                        style="position: absolute">
+                        <div>
+                            <input type="range"
+                                min="0"
+                                max="9"
+                                step="1"
+                                value="0"
+                                orient="vertical"
+                                onchange="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }); _uz.transfer.range = _uz.z.range } catch (e) {}"
+                                ontouchmove="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }) } catch (e) {}"
+                                onmousemove="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }) } catch (e) {}"
+                                ontouchstart="_uz.z.slider.active = !0; document.getElementById('${d.container}').classList.add('noScroll'); this.style.opacity = .36"
+                                ontouchend="document.getElementById('${d.container}').classList.remove('noScroll'); this.style.opacity = .86"
+                                onmouseover="_uz.z.slider.active = !0; document.getElementById('${d.container}').classList.add('noScroll')"
+                                onmouseleave="document.getElementById('${d.container}').classList.remove('noScroll')"
+                                onmousedown="this.style.opacity = .12"
+                                onmouseup="this.style.opacity = .42"
+                                style="-webkit-transform: rotate(-90deg); width: ${_uz.z.digit.height}px; opacity: .42"/>
+                        </div>
+                    </div>`;
+                document.getElementById(d.container).appendChild(d.d);
+                showDigitRange(d);
+            } else if (!_uz.z.slider.active) {
+                d.d.style.pointerEvents = "none";
+                if (d.d) d.d.remove();
+                d.f = document.getElementById(d.event.target.id);
+                if (d.f) {
+                    d.event.target.appendChild(d.d);
+                    d.d.getElementsByTagName("div")[0].getElementsByTagName("input")[0].targetId = d.event.target.id;
+                    d.d.getElementsByTagName("div")[0].getElementsByTagName("input")[0].value = parseInt(d.f.getElementsByTagName("span")[0].textContent);
+                    setTimeout(() => {
+                        d.d.style.pointerEvents = "auto";
+                    }, 128);
+                } else {
+                    updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: document.getElementById(d.slider).getElementsByTagName("input")[0].value });
+                    d.e = document.getElementById(d.digit);
+                    if (d.e) {
+                        while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+                        _uz.z.slider.single.empty = !0;
+                    }
+                }
+            }
+        }
+    };
+    window.hideRangeSlider = (d) => {
+        setTimeout(() => {
+            if (!_uz.z.slider.active) {
+                d.d = document.getElementById(d.stepper);
+                if (d.d) d.d.remove();
+            }
+        }, 720);
+    };
+    window.readContents = (d) => {
+        _uz.local.account.currency = _uz.local.account.currency ? _uz.local.account.currency : _uz.default;
+        updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: 0 });
+    };
+    window.addEventListener("resize", () => {
+        updateDigitDisplay({ container: _uz.container, digit: _uz.digit, slider: _uz.slider, stepper: _uz.stepper });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        readContents({
+            container: _uz.container,
+            digit: _uz.digit,
+            slider: _uz.slider,
+            stepper: _uz.stepper,
+            range: { max: _uz.local.account.amount }
+        })        
+    });
+    loadSlider({});
+</script>
+<script>
+    let acceptRange = (d) => {
+        if (_uz.z.range && localStorage.beneficiary) {
+            d.beneficiary = JSON.parse(localStorage.beneficiary);
+            d.currency = _uz.user.currency || "USD";
+            delete localStorage.transfer;
+            d.a = `${_uz.z.range}`.split(".");
+            d.b = `${_uz.local.account.amount}`.split(".");
+            if ((BigInt(d.a[0] ?? 0) << 64n | BigInt(d.a[1] ?? 0)) <= (BigInt(d.b[0] ?? 0) << 64n | BigInt(d.b[1] ?? 0))) {
+                localStorage.dialog = JSON.stringify({
+                    message: `
+                        Do you want to transfer <strong>${d.currency} ${`${_uz.z.range}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> to <strong>${d.beneficiary[d.beneficiary.name != "N/A" ? "name" : "number"]}</strong>?`,
+                    buttons: {
+                        cancel: {
+                            type: 1,
+                            text: `<span>✖ Cancel</span>`,
+                            shells: `['settings', 'balance', 'options']`,
+                            scroll: 1,
+                            reset: !0
+                        },
+                        transfer: {
+                            text: `<span>Transfer ➔</span>`,
+                            shells: `['showqr']`,
+                            scroll: 0
+                        }
+                    },
+                    back: {
+                        shells: `['slider']`,
+                        scroll: 0
+                    }
+                });
+                localStorage.transfer = JSON.stringify({
+                    currency: d.currency,
+                    amount: `${_uz.z.range}`
+                });
+            } else localStorage.dialog = JSON.stringify({
+                    message: `
+                        You do not have enough balance to transfer <strong>${d.currency} ${`${_uz.z.range}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> to <strong>${d.beneficiary[d.beneficiary.name != "N/A" ? "name" : "number"]}</strong>.`,
+                    buttons: {
+                        cancel: {
+                            text: `<span>✖ Cancel</span>`,
+                            shells: `['settings', 'balance', 'options']`,
+                            scroll: 1,
+                            reset: !0
+                        }
+                    },
+                    back: {
+                        shells: `['slider']`,
+                        scroll: 0
+                    }
+                });
+        } else localStorage.dialog = JSON.stringify({
+                message: `Unable to process electronic cash transfer, because the amount is wrong, please select a valid amount and try again.`,
+                buttons: {
+                    cancel: {
+                        text: `<span>✖ Cancel</span>`,
+                        shells: `['settings', 'balance', 'options']`,
+                        scroll: 1,
+                        reset: !0
+                    }
+                },
+                back: {
+                    shells: `['slider']`,
+                    scroll: 0
+                }
+            });
+        loadPage({ shells: ['dialog'], scroll: 0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

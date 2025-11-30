@@ -1,0 +1,267 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    #show-qr-cont {
+        color: white;
+    }
+    .qr-cont {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+    }
+    .display-panel {
+        padding: 3vmin;
+        background: 
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-top: 3px solid #000000cc;
+        border-left: 3px solid #000000cc;
+        border-bottom: 1px solid #cfcfcf33;
+        border-right: 1px solid #cfcfcf33;
+        border-radius: 3vmin;
+        box-shadow: 0px 0px 50px #000000ee inset;
+        text-shadow: 0px 0px 20px #ffff00cc;
+        pointer-events: none;
+    }
+    .modal-icon {
+        position: absolute;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 42px;
+        height: 42px;
+        text-decoration: none;
+        color: white;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        fill: currentColor;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+        transition: all .3s ease;
+        pointer-events: auto;
+    }
+    .modal-icon:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+    }
+    .modal-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+    }
+    .modal-icon > i {
+        margin: 0;
+        position: absolute;
+        color: grey;
+        font-size: 22px;
+    }
+    .modal-icon > i:hover {
+        color: #333;
+        font-size: 24px;
+    }
+    .modal-icon > i:active {
+        color: black;
+        font-size: 21px;
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .qr-cont canvas {
+            height: 86vw;
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .qr-cont canvas {
+            width: 69vh;
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .qr-cont canvas {
+            height: 90vw;
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .qr-cont canvas {
+            width: 90vh;
+        }
+    }
+</style>
+<div id="api-404" hidden></div>
+<script src="./assets/js/ecash.js"></script>
+<div id="show-qr-cont" style="padding: 12px; display: none">
+    <div class="display-panel qr-cont">
+        <span class="modal-icon" onclick="navigator.clipboard.writeText(`${_uz.hash}`)" style="scale: 1.24">
+            <i class="fa fa-copy"></i>
+        </span>
+        <div class="modal-front"></div>
+        <div class="modal-overlay"></div>
+    </div>
+</div>
+<script type="module">
+    import QrCreator from "./assets/js/qr.creator.js";
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    let openApp = (d) => {
+        if (localStorage.showqr) {
+            createQr({ s: localStorage.showqr });
+            delete localStorage.showqr;
+        } else if (localStorage.transfer) {
+            window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "check-credits",
+                amount: 0,
+                transactions: [],
+                credits: d.tx = localStorage.transactions ? JSON.parse(localStorage.transactions) : null
+            }, "*");
+        } else _uz.api.contentWindow.postMessage({ action: "ecash-api-hash-account" }, _uz.api.src);
+    },
+    transferAmount = (d) => {
+        d.transfer = JSON.parse(localStorage.transfer);
+        if (d.amount == 0 && d.transactions.length > 0 || d.amount != 0 && d.amount < 2000 || d.tampered !== undefined) {
+            _uz.user = localStorage.user ? JSON.parse(localStorage.user) : { agreed: {}, opened: {} };
+            delete _uz.user.agreed.player;
+            localStorage.user = JSON.stringify(_uz.user);
+            localStorage.dialog = JSON.stringify({
+                message: `
+                    We’re unable to process your electronic cash transfer because ${
+                        d.tampered !== undefined
+                            ? [
+                                `your transaction records appear to have been <strong>tampered</strong> with and we take this very seriously`,
+                                `we detected possible <strong>tampering</strong> in your transaction records and for security reasons we can’t proceed`,
+                                `your transaction shows signs of <strong>tampering</strong> so we’re unable to complete the transfer`,
+                                `there are indications of <strong>tampering</strong> in your transaction details, preventing us from processing it`,
+                                `suspected <strong>tampering</strong> was found in your transaction records so we must halt this transfer for your safety`
+                            ][Math.floor(Math.random() * 5)]
+                            : [
+                                `your current winnings of <strong>$ ${d.amount.toFixed(2)}</strong> haven’t yet reached the <strong>$2,000</strong> minimum`,
+                                `you currently have <strong>$ ${d.amount.toFixed(2)}</strong> winnings which is below the required <strong>$2,000</strong> minimum`,
+                                `your winnings total <strong>$ ${d.amount.toFixed(2)}</strong> and you need at least <strong>$2,000</strong> to proceed`,
+                                `with only <strong>$ ${d.amount.toFixed(2)}</strong> winnings, you haven’t met the <strong>$2,000</strong> minimum yet`,
+                                `your winnings amount to <strong>$ ${d.amount.toFixed(2)}</strong>, falling short of the <strong>$2,000</strong> requirement`
+                            ][Math.floor(Math.random() * 5)]
+                        }, which helps keep the system fair and sustainable for all players.`,
+                buttons: {
+                    cancel: {
+                        text: `<span>✖ Cancel</span>`,
+                        shells: `['settings', 'balance', 'options']`,
+                        scroll: 1,
+                        reset: !0
+                    }
+                },
+                back: {
+                    shells: `['slider']`,
+                    scroll: 0
+                }
+            });
+            loadPage({ shells: ['dialog'], scroll: 0 });
+        } else {
+            _uz.api.contentWindow.postMessage({
+                action: "ecash-api-transfer-amount",
+                currency: d.transfer.currency,
+                range: d.transfer.amount
+            }, _uz.api.src);
+            if (d.transactions) {
+                d.tx = localStorage.transactions ? JSON.parse(localStorage.transactions) : {};
+                for (let i in d.transactions)
+                    d.tx[d.transactions[i]].expiry = btoa(JSON.stringify({ hash: btoa(d.tx[d.transactions[i]].number) }));
+                localStorage.transactions = JSON.stringify(d.tx);
+            }
+        }
+    },
+    createQr = (d) => {
+        if (d.s) {
+            d.q = document.querySelector(".qr-cont");
+            if (d.q) _uz.api.contentWindow.postMessage({ action: "ecash-api-hash-fragment", hash: _uz.hash = d.s, length: _uz.qr.length }, _uz.api.src);
+        }
+    },
+    drawQr = (d) => {
+        QrCreator.render({ text: d.piece, radius: "0.5", ecLevel: "H", fill: "#fff", background: null, size: "512" }, document.querySelector(d.id));
+    };
+    window.addEventListener("message", (e) => {
+        if (e.data && e.data.action) {
+            if (e.data.action.match(/(check-credits)/))
+                transferAmount({ amount: e.data.amount, transactions: e.data.transactions, tampered: e.data.tampered });
+        }
+    });
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "display-balance",
+        hide: !0
+    }, "*");
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "branding-icon",
+        hide: !1
+    }, "*");
+</script>

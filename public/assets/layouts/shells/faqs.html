@@ -1,0 +1,314 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    :root {
+        --size-header: 2.25rem;
+        --size-accordion-title: 1.25rem;
+        --size-accordion-content: 1rem;
+        --animation-speed: 100;
+        --slide-ease: cubic-bezier(0.86, 0, 0.07, 1);
+        --slide-duration: calc(400ms * 100 / var(--animation-speed));
+        --slide-delay: calc(450ms * 100 / var(--animation-speed));
+        --circle-duration: calc(900ms * 100 / var(--animation-speed));
+    }
+    *,
+    *::before,
+    *::after {
+        position: relative;
+        left: 0;
+        top: 0;
+        box-sizing: border-box;
+    }
+    a,
+    p,
+    h1 {
+        margin: 0;
+    }
+    body {
+        padding: 2rem 2rem;
+        margin: 0;
+        display: grid;
+        height: 100%;
+        place-items: center;
+        font-family: Nunito, Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        scroll-behavior: smooth;
+        scroll-padding-top: 1rem;
+        overflow-y: scroll;
+    }
+    main > h1 {
+        font-size: var(--size-header);
+        margin-bottom: 1.25rem;
+    }
+    ::selection {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .accordion {
+        --circle-x: 1.8rem;
+        --circle-y: 0;
+        --circle-r: 200%;
+        color: #fff;
+        max-width: 64ch;
+        margin-bottom: 1rem;
+        border-radius: min(8px, 0.5rem);
+        display: grid;
+        grid-template-rows: 0fr 0fr;
+        transition-timing-function: var(--slide-ease);
+        transition-duration: 200ms, 200ms, var(--slide-duration);
+        transition-property: opacity, box-shadow, grid-template-rows;
+        transition-delay: 0ms, 0ms, var(--slide-delay);
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        opacity: 0.9;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .accordion:not(:target):hover {
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+    }
+    .accordion:not(:target):active {
+        opacity: 1;
+        box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.3);
+    }
+    .accordion,
+    .content {
+        overflow: hidden;
+    }
+    .accordion:target {
+        --d: 90deg;
+        grid-template-rows: 0fr 1fr;
+        transition: grid-template-rows var(--slide-ease) var(--slide-duration) var(--slide-delay);
+    }
+    .wrapper {
+        padding-block: 0 1.05rem;
+        padding-inline: 1.25rem;
+    }
+    .content {
+        font-size: var(--size-accordion-content);
+        line-height: 140%;
+    }
+    .content p {
+        margin-bottom: 1rem;
+    }
+    .content a {
+        color: currentColor;
+        font-weight: 800;
+        text-decoration: underline;
+    }
+    .content :last-child {
+        margin-bottom: 0;
+    }
+    .title a {
+        padding: 1rem 1.25rem;
+        font-size: var(--size-accordion-title);
+        font-weight: 800;
+        color: currentColor;
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        place-items: center;
+    }
+    .title a::before {
+        --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3C!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath fill='white' d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
+        content: "";
+        left: 0;
+        top: 0;
+        width: 0.65rem;
+        aspect-ratio: 320 / 512;
+        display: inline-block;
+        margin-right: 0.75rem;
+        transform: rotate(var(--d, 0deg));
+        transition: transform var(--slide-ease) var(--slide-duration) var(--slide-delay);
+        mask-image: var(--chevron-icon);
+        mask-size: 100% 100%;
+        -webkit-mask-image: var(--chevron-icon);
+        -webkit-mask-size: 100% 100%;
+        background-color: currentColor;
+    }
+    .accordion::before,
+    .accordion::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--circle-bg);
+        mix-blend-mode: difference;
+        transform-style: preserve-3d;
+        transition-timing-function: ease;
+        transition-property: opacity, clip-path, visibility;
+        pointer-events: none;
+        clip-path: circle(var(--r) at var(--circle-x) var(--circle-y));
+        border-radius: inherit;
+        z-index: 4;
+    }
+    .accordion::before {
+        --r: 0%;
+        transition-delay: var(--circle-duration), var(--circle-duration), 0ms;
+        transition-duration: 0ms, var(--circle-duration), 0ms;
+        opacity: 0;
+    }
+    .accordion:target::before {
+        --r: var(--circle-r);
+        transition-delay: 0ms, 0ms, 0ms;
+        transition-duration: 0ms, var(--circle-duration), 0ms;
+        opacity: 1;
+    }
+    .accordion::after {
+        --r: var(--circle-r);
+        transition-delay: 0ms, 0ms, var(--circle-duration);
+        transition-duration: 0ms, var(--circle-duration), 0ms;
+        visibility: hidden;
+        opacity: 1;
+    }
+    .accordion:target:after {
+        --r: 0%;
+        transition-delay: 0ms, 0ms, 0ms;
+        transition-duration: 0ms, 0ms, 0ms;
+        visibility: visible;
+        opacity: 0;
+    }
+    .title a:focus-visible {
+    }
+    .accordion:target .title a:focus-visible {
+    }
+</style>
+<main>
+    <h1><span class="metallic-text gold-text" data-gold="FA">FA</span><span class="metallic-text silver-text" data-silver="Qs">Qs</span></h1>
+    <section class="accordion modal-frame" id="what-are-slot-machines">
+        <h1 class="title"><a href="#what-are-slot-machines">What are slot games?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Slot games are entertaining games with spinning reels containing various symbols. Players win when specific combinations appear on designated paylines. All gameplay uses eℂash credits managed by Play Spin It! for fun and fair entertainment. After the website loads, games can be played offline, and all eℂash credits are stored locally on your device.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="how-to-play">
+        <h1 class="title"><a href="#how-to-play">How do I play slot games?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Once the website loads, you can enjoy gameplay entirely offline. Choose a slot game, set your bet amount using eℂash credits, and spin the reels. Winning combinations automatically credit your eℂash balance locally. Continue playing or exchange your eℂash for cash when your total winnings reach $2,000 at authorized points in the establishment.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="ecash-credits">
+        <h1 class="title"><a href="#ecash-credits">What are eℂash credits?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    eℂash credits are digital credits stored locally on your device. They are used to play all games in Play Spin It!. You may receive initial eℂash loans as gifts from Play Spin It!, which carry no obligation or recourse. Credits won or gifted can later be exchanged for real cash once total winnings reach $2,000 at authorized points in the establishment. 
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="offline-storage">
+        <h1 class="title"><a href="#offline-storage">Where are my eℂash credits stored?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    All eℂash credits are stored locally on your device and remain under your control. Play Spin It! cannot recover credits if the device is lost or erased. Players are responsible for maintaining their devices and securing their eℂash credits.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="lost-credits">
+        <h1 class="title"><a href="#lost-credits">What happens if I lose or erase my eℂash credits?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    If your device is lost, erased, or experiences technical issues, eℂash credits may be permanently lost. Play Spin It! is not liable for any such loss. Players must manage their own devices responsibly and take screenshots of important wins, especially jackpots, to ensure proper documentation for potential redemption.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="cash-exchange">
+        <h1 class="title"><a href="#cash-exchange">How do I exchange eℂash credits for real cash?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Players can exchange eℂash credits for real cash once total winnings reach $2,000 at authorized points in the establishment. Proof of wins, such as screenshots, may be required for verification. This ensures a safe and fair exchange process for everyone.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="liability">
+        <h1 class="title"><a href="#liability">Is Play Spin It! responsible for lost credits?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    No. eℂash credits are stored locally on your device. Any loss due to device issues, deletion, or user error is the Player’s responsibility. Play Spin It! is not liable for lost or deleted credits and will not provide replacements.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="bonus-features">
+        <h1 class="title"><a href="#bonus-features">What are bonus features in slot games?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Bonus features include free spins, wilds, scatters, multipliers, and mini-games. They enhance gameplay and add more chances to win eℂash credits. All bonus winnings are added to your offline eℂash balance immediately. Remember to take screenshots of notable wins, especially jackpots.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="how-to-win">
+        <h1 class="title"><a href="#how-to-win">Can I guarantee a win?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Slot outcomes are random. No strategy can guarantee a win. Players can manage eℂash credits wisely, play responsibly, and enjoy the fun of offline games while capturing screenshots of significant wins for verification.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="mobile-slots">
+        <h1 class="title"><a href="#mobile-slots">Can I play slot games on mobile?</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    Yes. Once loaded, Play Spin It! games can be played offline on mobile devices. eℂash credits are stored locally. Losing access to your device or clearing browser data may result in permanent loss of credits, so always secure your device and take screenshots of important wins.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="accordion modal-frame" id="terms">
+        <h1 class="title"><a href="#terms">Terms and Acknowledgment</a></h1>
+        <div class="content">
+            <div class="wrapper">
+                <p>
+                    By playing Play Spin It! games, you acknowledge that eℂash credits are stored locally and offline. Players are responsible for managing their devices, capturing proof of wins, and following all house rules. Play Spin It! is not liable for lost or deleted credits. All gameplay, gifted loans, and redemption processes are subject to the rules outlined in the Player Agreement.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

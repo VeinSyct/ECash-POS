@@ -1,0 +1,469 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+		overflow: hidden;
+        color: white;
+	}
+    .centered {
+        padding-bottom: 96px;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+        .contact-form {
+            margin-top: 96px;
+        }
+    }
+    @media only screen and (max-width:480px) {
+        .contact-form {
+            margin-top: 12px;
+            margin-bottom: 96px;
+            padding: 36px 18px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .contact-form {
+            margin-top: 12px;
+            margin-bottom: 96px;
+            padding: 36px 18px;
+        }
+    }
+    .content-section {
+        margin: 64px 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .currencies {
+        margin: 0;
+        margin-bottom: 24px;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+        gap: 1rem;
+        max-width: 960px;
+        border-radius: 12px;
+        max-height: calc(100vh - 324px);
+        overflow-y: scroll;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px inset, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px inset;
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .content-section {
+            margin: 96px 0 12px;
+        }
+        .currencies {
+            max-width: 90vw;
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .currencies {
+            max-width: 90vw;
+            max-height: calc(100vh - 264px);
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .content-section {
+            margin: 64px 0 12px;
+        }
+        .currencies {
+            max-width: 96vw;
+            max-height: calc(100vh - 276px);
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .content-section {
+            margin: 42px 0 12px;
+        }
+        .currencies {
+            max-width: 90vw;
+            max-height: calc(100vh - 207px);
+        }
+    }
+    .currency {
+        padding: 6px;
+        color: white;
+        border-radius: 6px;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+    }
+    .currency:hover {
+        color: white;
+        transform: translateY(-2px);
+        background: rgba(14, 30, 37, .64);
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    }
+    .currency:active {
+        color: white;
+        background: transparent;
+        box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    }
+    .currency h3 {
+        margin: .5rem 0;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    .metallic-button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .metallic-button > button {
+        position: relative;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        color: rgba(120, 140, 200, 1);
+        background: 
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-radius: 12px;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        backdrop-filter: blur(3px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.35s ease;
+    }
+    .metallic-button > button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .metallic-button > button:hover {
+        color: #a0c6ff;
+        transform: translateY(-2px) scale(1.03);
+        backdrop-filter: blur(6px) saturate(160%);
+    }
+    .metallic-button > button:hover::before {
+        opacity: 1;
+        animation: metal-shine 1s ease-out forwards;
+    }
+    .metallic-button > button:active {
+        color: rgba(200, 240, 255, 1);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        transform: translateY(0) scale(1);
+    }
+    @keyframes metal-shine {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0.3;
+        }
+        100% {
+            transform: translate(150%, 150%) rotate(360deg);
+            opacity: 0;
+        }
+    }
+</style>
+<div class="centered">
+    <section class="content-section">
+        <h2>
+            <span class="metallic-text gold-text" data-gold="Currencies">Currencies</span>
+        </h2>
+        <p>
+            <span>Choose your preferred currency from the list below.</span>
+        </p>
+    </section>
+    <div class="currencies"></div>
+    <div class="metallic-button">
+        <button onclick="saveChanges({})">
+            <i class="fa fa-floppy-o fa-1x" style="margin-right: 12px;"></i>
+            <span>Save</span>
+        </button>
+    </div>
+</div>
+<div id="api-404" hidden></div>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    let openApp = (d) => {
+        loadCurrencies({ s: "" });
+    },
+    currencyFrame = (d) => {
+        return `
+            <div class="currency modal-frame" onclick="_uz.select='${d.k}'">
+                <h3>${d.k}</h3>
+            </div>`;
+    },
+    loadCurrencies = (d) => {
+        for (let k in _uz.language)
+            d.s += currencyFrame({ k: k });
+        document.querySelector(".currencies").innerHTML = d.s;
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+        document.querySelector(".centered").style.display = "flex";
+    },
+    changeCurrency = (d) => {
+        _uz.api.contentWindow.postMessage({
+            action: "ecash-api-change-currency",
+            currency: d.currency
+        }, _uz.api.src);
+        _uz.user = JSON.parse(localStorage.user);
+        _uz.user.currency = d.currency;
+        localStorage.user = JSON.stringify(_uz.user);
+    },
+    saveChanges = (d) => {
+        changeCurrency({ currency: _uz.select });
+        localStorage.dialog = JSON.stringify({
+            message: `You have changed your currency to ${_uz.select}, dismiss to <i class='fa fa-check'></i> accept or go back to select another?`,
+            buttons: {
+                dismiss: {
+                    text: `<span><i class="fa fa-check" style="margin-right: 12px"></i> Dismiss</span>`,
+                    shells: `['settings', 'balance', 'options']`,
+                    scroll: 1,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['currencies']`,
+                scroll: 0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0 });
+    };
+    _uz.language = {
+        EUR: "en-DE",
+        USD: "en-US-POSIX",
+        PHP: "es-PH",
+        AED: "ar-AE",
+        AFN: "ps-AF",
+        ALL: "sq-AL",
+        AMD: "hy-AM",
+        ANG: "nl-CW",
+        AOA: "ln-AO",
+        ARS: "es-AR",
+        AUD: "en-AU",
+        AWG: "nl-AW",
+        AZN: "az-Cyrl-AZ",
+        BAM: "bs-Cyrl-BA",
+        BBD: "en-BB",
+        BDT: "bn-BD",
+        BGN: "bg-BG",
+        BHD: "ar-BH",
+        BIF: "rn-BI",
+        BMD: "en-BM",
+        BND: "ms-Latn-BN",
+        BOB: "es-BO",
+        BRL: "pt-BR",
+        BSD: "en-BS",
+        BTN: "dz-BT",
+        BWP: "en-BW",
+        BYR: "ru-BY",
+        BZD: "en-BZ",
+        CAD: "fr-CA",
+        CDF: "lu-CD",
+        CHF: "rm-CH",
+        CLP: "es-CL",
+        CNY: "ii-CN",
+        COP: "es-CO",
+        CRC: "es-CR",
+        CUP: "es-CU",
+        CVE: "pt-CV",
+        CZK: "en-CZ",
+        DJF: "ar-DJ",
+        DKK: "da-DK",
+        DOP: "es-DO",
+        DZD: "kab-DZ",
+        EGP: "ar-EG",
+        ERN: "ar-ER",
+        ETB: "om-ET",
+        FJD: "en-FJ",
+        FKP: "en-FK",
+        GBP: "en-GB",
+        GEL: "ka-GE",
+        GHS: "ak-GH",
+        GGP: "en-GG",
+        GIP: "en-GI",
+        GMD: "en-GM",
+        GNF: "fr-GN",
+        GTQ: "es-GT",
+        GYD: "en-GY",
+        HKD: "zh-Hans-HK",
+        HNL: "es-HN",
+        HRK: "hr-HR",
+        HTG: "fr-HT",
+        HUF: "en-HU",
+        IDR: "id-ID",
+        ILS: "ar-IL",
+        INR: "kok-IN",
+        IQD: "ar-IQ",
+        IRR: "fa-IR",
+        ISK: "en-IS",
+        JMD: "en-JM",
+        JOD: "ar-JO",
+        JPY: "ja-JP",
+        KES: "saq-KE",
+        KGS: "ru-KG",
+        KHR: "km-KH",
+        KMF: "ar-KM",
+        KPW: "ko-KP",
+        KRW: "ko-KR",
+        KWD: "ar-KW",
+        KYD: "en-KY",
+        KZT: "kk-Cyrl-KZ",
+        LAK: "lo-LA",
+        LBP: "ar-LB",
+        LKR: "ta-LK",
+        LRD: "vai-Latn-LR",
+        LSL: "en-LS",
+        LTL: "en-LT",
+        LVL: "en-LV",
+        LYD: "ar-LY",
+        MAD: "ar-MA",
+        MDL: "ru-MD",
+        MGA: "mg-MG",
+        MKD: "sq-MK",
+        MMK: "my-MM",
+        MNT: "mn-Cyrl-MN",
+        MOP: "zh-Hant-MO",
+        MRO: "ar-MR",
+        MUR: "en-MU",
+        MWK: "en-MW",
+        MXN: "es-MX",
+        MYR: "ms-Latn-MY",
+        MZN: "mgh-MZ",
+        NAD: "naq-NA",
+        NGN: "ha-Latn-NG",
+        NIO: "es-NI",
+        NOK: "nn-NO",
+        NPR: "ne-NP",
+        NZD: "en-NZ",
+        OMR: "ar-OM",
+        PAB: "es-PA",
+        PEN: "es-PE",
+        PGK: "en-PG",
+        PKR: "pa-Arab-PK",
+        PLN: "en-PL",
+        PYG: "es-PY",
+        QAR: "ar-QA",
+        RON: "en-RO",
+        RSD: "sr-Latn-RS",
+        RUB: "ru-RU",
+        RWF: "rw-RW",
+        SAR: "ar-SA",
+        SBD: "en-SB",
+        SCR: "en-SC",
+        SDG: "ar-SD",
+        SEK: "sv-SE",
+        SGD: "ms-Latn-SG",
+        SHP: "en-SH",
+        SLL: "en-SL",
+        SOS: "ar-SO",
+        SRD: "nl-SR",
+        STD: "pt-ST",
+        SYP: "ar-SY",
+        SZL: "en-SZ",
+        THB: "th-TH",
+        TJS: "tg-Cyrl-TJ",
+        TMT: "tk-Latn-TM",
+        TND: "ar-TN",
+        TOP: "to-TO",
+        TRY: "tr-TR",
+        TTD: "en-TT",
+        TWD: "zh-Hant-TW",
+        TZS: "sw-TZ",
+        UAH: "ru-UA",
+        UGX: "teo-UG",
+        UYU: "es-UY",
+        UZS: "uz-Cyrl-UZ",
+        VEF: "es-VE",
+        VND: "vi-VN",
+        VUV: "en-VU",
+        WST: "en-WS",
+        YER: "ar-YE",
+        ZAR: "en-LS",
+        ZMW: "af-ZA",
+        DMY: "en-US"
+    };
+</script>
+<script src="assets/js/index.js"></script>

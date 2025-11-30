@@ -1,0 +1,346 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    body {
+		margin: 12px;
+        color: white;
+	    animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .modal-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        right: 6px;
+        top: 6px;
+        text-decoration: none;
+        color: #666;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        fill: currentColor;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+        transition: all .3s ease;
+    }
+    .modal-icon:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+    }
+    .modal-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+    }
+    section {
+        padding: 42px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 90px);
+    }
+    .content {
+        padding: 64px 0 42px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        max-width: min(720px, 100%);
+        height: fit-content;
+        max-height: 420px;
+        gap: 30px;
+        color: lightgray;
+        border-radius: 20px;
+    }
+    .info {
+        padding: 0 64px;
+        overflow-y: scroll;
+    }
+    .info p {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .metallic-button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 12px;
+    }
+    .metallic-button > button {
+        position: relative;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        color: rgba(120, 140, 200, 1);
+        background: 
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-radius: 12px;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        backdrop-filter: blur(3px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+        transition: all 0.35s ease;
+    }
+    .metallic-button > button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .metallic-button > button:hover {
+        color: #a0c6ff;
+        transform: translateY(-2px) scale(1.03);
+        backdrop-filter: blur(6px) saturate(160%);
+    }
+    .metallic-button > button:hover::before {
+        opacity: 1;
+        animation: metal-shine 1s ease-out forwards;
+    }
+    .metallic-button > button:active {
+        color: rgba(200, 240, 255, 1);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        transform: translateY(0) scale(1);
+    }
+    @keyframes metal-shine {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0.3;
+        }
+        100% {
+            transform: translate(150%, 150%) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    .dialog-btn {
+        position: relative;
+        width: 100%;
+        white-space:nowrap;
+        transition: all .3s ease;
+        overflow: hidden;
+    }
+    .btn2 {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .05));
+    }
+    .dialog-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .dialog-btn:hover::before {
+        left: 0;
+    }
+    .dialog-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    }
+    .btn2:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .12));
+    }
+    .dialog-btn:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .btn2:active {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
+    }
+    .dialog-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .dialog-btn:disabled {
+        opacity: .36;
+        pointer-events: none;
+    }
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    li {
+        margin-left: 24px;
+        margin-bottom: 12px;
+    }
+    input {
+        cursor: url("assets/images/pointer_hand.png"), pointer;
+    }
+    .agree-chk {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        accent-color: #ff4d4d;
+        margin-right: 10px;
+    }
+    .chk-scroll {
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+        .content {
+            max-width: min(76vw, 100%);
+            max-height: calc(100vh - 640px);
+        }
+        .info {
+            padding: 0 36px;
+        }
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+        .content {
+            padding: 36px 0 29px;
+            max-width: min(640px, 100%);
+            max-height: calc(100vh - 360px);
+        }
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        section {
+            padding: 56px 0;
+        }
+        .content {
+            padding: 36px 0 36px;
+            max-width: min(90vw, 100%);
+            max-height: calc(100vh - 160px);
+        }
+        .info {
+            padding: 0 21px;
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        section {
+            padding: 56px 0;
+        }
+        .content {
+            padding: 36px 0 29px;
+            max-width: min(436px, 100%);
+            max-height: calc(100vh - 150px);
+        }
+        .info {
+            padding: 0 49px;
+        }
+    }
+</style>
+<body></body>
+<script>
+    let btnFrame = (d) => {
+        return `<div class="metallic-button"><button class="dialog-btn${!d.type ? "" : d.type == 1 ? " btn2" : ""}"${d.disabled ? " disabled" : ""} onclick="${d.action ? d.action : ""}loadPage({ shells: ${d.shells}, scroll: ${d.scroll}${d.reset ? ", reset: !0" : ""} })">${d.text}</button>`;
+    },
+    createDialog = (d) => {
+        if (localStorage.dialog) {
+            d.s = JSON.parse(localStorage.dialog);
+            for (let k in d.s.buttons)
+                d.b += btnFrame({ shells: d.s.buttons[k].shells, scroll: d.s.buttons[k].scroll, reset: d.s.buttons[k].reset, text: d.s.buttons[k].text, action: d.s.buttons[k].action, type: d.s.buttons[k].type, disabled: d.s.buttons[k].disabled });
+            document.body.innerHTML = `
+                <section>
+                    <div class="content modal-frame">
+                        <span class="modal-icon" onclick="loadPage({ shells: ${d.s.back.shells}, scroll: ${d.s.back.scroll} })">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <div class="info">
+                            <p>${d.s.message}</p>
+                            <div class="form-row">${d.b}</div>
+                        </div>
+                    </div>
+                </section>`;
+        }
+        setTimeout(() => {
+            d.cB = document.querySelectorAll('.agree-chk');
+            d.cB.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    d.aB = document.querySelectorAll('.dialog-btn');
+                    if([...d.cB].every(cb => cb.checked)) {
+                        d.aB.forEach(ab => {
+                            ab.disabled = !1;
+                        });
+                    } else d.aB.forEach(ab => {
+                        ab.disabled = !0;
+                    });
+
+                });
+            });
+        }, 1024);
+    };
+    createDialog({ b: "" });
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

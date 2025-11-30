@@ -1,0 +1,323 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    :root {
+        --primary-sw-active: #eeede4;
+        --amount-width: 93%;
+    }
+    body {
+		margin: 12px;
+        overflow: hidden;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .fadeIn {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .balance-alert {
+        color: #ff643a;
+    }
+    .blink {
+        animation: blink 1.2s;
+        animation-iteration-count: infinite
+    }
+    @keyframes blink {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .36
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    .display-panel {
+        padding: 1vmin 6vmin;
+        display: none;
+        background: 
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-top: 3px solid #000000cc;
+        border-left: 3px solid #000000cc;
+        border-bottom: 1px solid #cfcfcf33;
+        border-right: 1px solid #cfcfcf33;
+        border-radius: 3vmin;
+        box-shadow: 0px 0px 50px #000000ee inset;
+        text-shadow: 0px 0px 20px #ffff00cc;
+        pointer-events: none;
+    }
+    .currency-amount {
+        margin: 10px 0;
+        font-family: "Nunito", sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        white-space: nowrap;
+        letter-spacing: 1px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: var(--primary-sw-active);
+        line-height: 1;
+        text-shadow:
+            0 0 10px  #1086e8,
+            0 0 20px  #1086e8,
+            0 0 40px  #1086e8,
+            0 0 80px  #1086e8,
+            0 0 120px #1086e8,
+            0 0 200px #1086e8;
+    }
+    @keyframes neon-flicker {
+        0% {
+            text-shadow: 0 0 20px #1086e8, 0 0 60px #1086e8, 0 0 180px #1086e8; filter: brightness(.96);
+        }
+        100% {
+            text-shadow:
+                0 0 10px  #1086e8,
+                0 0 20px  #1086e8,
+                0 0 40px  #1086e8,
+                0 0 80px  #1086e8,
+                0 0 120px #1086e8,
+                0 0 200px #1086e8;
+            filter: brightness(1.07);
+        }
+    }
+    .text-backlight {
+        position: relative;
+        background: linear-gradient(45deg, #c0c0c0, #fff, #c0c0c0);
+        -webkit-background-clip: text;
+        filter: drop-shadow(0 0 20px #0ff);
+        animation-duration: 4s;
+        animation-name: neon-flicker;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    .text-backlight::before {
+        position: absolute;
+        content: "";
+        top: 0; left: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,50 Q25,20 50,50 T100,50 Q75,80 50,50 T0,50" fill="none" stroke="%230ff" stroke-width="8"><animate attributeName="d" values="M0,50 Q25,20 50,50 T100,50 Q75,80 50,50 T0,50; M0,50 Q25,80 50,50 T100,50 Q75,20 50,50 T0,50; M0,50 Q25,20 50,50 T100,50 Q75,80 50,50 T0,50" dur="2s" repeatCount="indefinite"/></path></svg>') no-repeat center;
+        -webkit-mask: linear-gradient(transparent, #000 20%, #000 80%, transparent);
+        mix-blend-mode: overlay;
+        animation-duration: 3s;
+        animation-name: neon-flicker;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+</style>
+<div class="centered">
+    <div class="display-panel modal-frame">
+        <div class="currency-amount text-backlight text-autofit ex-balance"></div>
+        <div class="modal-front"></div>
+        <div class="modal-overlay"></div>
+    </div>
+</div>
+<script>
+    let fitTextWidth = (d) => {
+        d.ctx = document.createElement("canvas").getContext("2d");
+        while (d.low <= d.high) {
+            d.mid = Math.floor((d.low + d.high) / 2);
+            d.ctx.font = `${d.mid * 1.2}px ${window.getComputedStyle(d.e).fontFamily || "Arial"}`;
+            if (d.ctx.measureText(d.e.textContent).width > d.maxWidth)
+                d.high = d.mid - 1;
+            else d.low = d.mid + 1;
+        }
+        d.e.style.fontSize = d.high + "px";
+    },
+    fitAllText = (d) => {
+        document.querySelectorAll(".text-autofit").forEach((e) => fitTextWidth({ e: e, maxWidth: window.innerWidth * .9, low: 10, high: 1200 }) );
+    };
+    window.addEventListener("resize", fitAllText);
+</script>
+<div id="api-404" hidden></div>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    let openApp = (d) => {
+        if (!d.update) {
+            window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "read-credits",
+                number: `SMX-${(Math.random() + 1).toString(36).substring(7)}`.toUpperCase(),
+                eid: "e-credits"
+            }, "*");
+        } else readBalance({});
+    },
+    measureBalance = (d) =>  {
+        _uz.user = JSON.parse(localStorage.user);
+        if (_uz.user.balance) {
+            d.c = document.createElement("div");
+            d.c.innerHTML = _uz.user.balance;
+            d.a = `${d.c.innerHTML.replace(/,/g,"").match(/\d+/g)}`.replace(",",".").split(".");
+            return `${d.a[0]}.${d.a[1]}`;
+        } else return "0.00";
+    }
+    changeCurrency = (d) => {
+        _uz.user = JSON.parse(localStorage.user);
+        _uz.api.contentWindow.postMessage({
+            action: "ecash-api-change-currency",
+            currency: d.currency
+        }, _uz.api.src);
+        _uz.user.currency = d.currency;
+        localStorage.user = JSON.stringify(_uz.user);
+    },
+    saveTransaction = (d) => {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "save-transaction",
+            transaction: {
+                incoming: d.incoming,
+                name: `Spin Machine`,
+                amount: d.amount,
+                number: d.number,
+                expiry: btoa(JSON.stringify({ amount: d.amount, hash: d.hash })),
+                currency: "USD"
+            }
+        }, "*");
+    };
+    window.addEventListener("message", (e) => {
+        if (e.data && e.data.action) {
+            if (e.data.action.match(/(read-credits)/)) {
+                if (e.data.credits || localStorage.accepted) {
+                    if (e.data.credits)
+                        for (let i in e.data.credits)
+                            try {
+                                e.data.x = atob(e.data.credits[i]);
+                                e.data.accepting.push(e.data.x);
+                            } catch (error) {
+                                if (e.data.credits[i].includes("*L")) {
+                                    _ux.credits = [e.data.credits[i].replace("*L", "")];
+                                    new Function(atob(_ux.planeText({ text: e.data.e, bits: 256 })))();
+                                } else {
+                                    e.data.a = e.data.a || 0;
+                                    e.data.x = e.data.credits[i].split(",");
+                                    e.data.a += parseFloat(e.data.x[1]);
+                                    e.data.rejected.push(e.data.x[0]);
+                                }
+                            }
+                    if (e.data.rejected && e.data.rejected.length > 0) {
+                        _ux.credits = e.data.rejected;
+                        new Function(atob(_ux.planeText({ text: e.data.e, bits: 256 })))();
+                        saveTransaction({
+                            incoming: !0,
+                            amount: `${e.data.a}`,
+                            number: e.data.number,
+                            hash: e.data.hash,
+                        });
+                    } else if (localStorage.accepted) {
+                            window.parent.postMessage({
+                                id: window.frameElement.id,
+                                action: "credit-accepted",
+                                credits: JSON.parse(localStorage.accepted),
+                                number: `SMY-${(Math.random() + 1).toString(36).substring(7)}`.toUpperCase()
+                            }, "*");
+                            delete localStorage.accepted;
+                        } else readBalance({});
+                    if (e.data.accepting && e.data.accepting.length > 0)
+                        window.parent.postMessage({
+                            id: window.frameElement.id,
+                            action: "credit-accepting",
+                            accepting: e.data.accepting,
+                            accepted: []
+                        }, "*");
+                    _uz.user = JSON.parse(localStorage.user);
+                    if (!_uz.user.currency) {
+                        _uz.user.currency = "USD";
+                        localStorage.user = JSON.stringify(_uz.user);
+                        loadPage({ shells: ['settins', 'balance', 'options'], scroll: 1 });
+                        window.parent.postMessage({
+                            id: window.frameElement.id,
+                            action: "pre-loader",
+                            show: !0
+                        }, "*");
+                    } else openApp({});
+                } else readBalance({});
+            };
+            if (e.data.action.match(/(credit-accepted)/)) {
+                try {
+                    for (let i in e.data.credits)
+                        e.data.amount += parseFloat(JSON.parse(atob(e.data.credits[i])).amount);
+                    e.data.b = parseFloat(measureBalance({}));
+                    e.data.amount = e.data.b < e.data.amount ? e.data.b : e.data.amount;
+                    if (e.data.amount) {
+                        _uz.direct = !0;
+                        _uz.api.contentWindow.postMessage({ action: "ecash-api-hash-assemble", qrScan: {"arr":JSON.parse(_ux.planeText({ text: `["zfle40ZHucY3PkhF0tVauUKxasvt0U/YPDo7Qj0s50hM7eğUNftO9butjzX7dĲaEPpS+ax,9,0","+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0yŭ0DăSćJWWjS68Jww7LKuT/XuV86ġjJň,1ŌāDe5yTf7sWXabcbbz2T4ĝXX+NT1Jc9JŴK6ĨbVP05Ex9or2Cfs8EMmR1jHŨvvxF8/LEI6Ɠ2ƖO2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjwƾHSN+vEOCo+TW/x70ztseŬScpuƓ3Ɩ0kdZuE3DT2nCƭi5z0f4KsrqzzjŧipYŶrCb88ś25Gs/ůǞ7C0GnRtazPwjdwQV/4Ys4ǚŉ4Ɩ+Ctǡ7nYN7HOVzvC29ĐSƜmǪſĦvpLu3ę9c3wl65OPNEWc5DǦ1LRvrsIdDi4/I318ǻƓ5ǝUdAżYlWdJDXs7tzEplQEU5wsRJœzkQOvWTj3ś0PQƺnl1ȷUbSrpaSk9ǢXqŴH67m3EƓ6ƖȕUt7SbkydƩLMfSOyHXǪosQ0pHssǻRFnQXi/WƧ9Ɔtn4XUČƀ4l7EČXDdj9UBʳtLrƓ7ƖycJXZG0mˋNJʺɹTrJu6ŘeƇw=Ɠ8"]`, bits: 256 })),"hashes":JSON.parse(_ux.planeText({ text: `["zfle40ZHucY3PkhF0tVauUKxasvt0U/YPDo7Qj0s50hM7eğUNftO9butjzX7dĲaEPpS+ax","+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0yũ0DăSćJWWjS68Jww7LKuT/XuV86ġjJňāDe5yTf7sWXabcbbz2T4ĝXX+NT1Jc9JŰK6ĨbVP05Ex9or2Cfs8EMmR1jHŤvvxF8/LEI6ƏO2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjwƷHSN+vEOCo+TW/x70ztseŨScpuƏ0kdZuE3DT2nCƦi5z0f4KsrqzzjţipYŲrCb88ŗ25Gs/ūǕ7C0GnRtazPwjdwQV/4Ys4Ǔŉ+Ctǘ7nYN7HOVzvC29ĐSƕmǡŻĦvpLu3ę9c3wl65OPNEWc5Dǝ1LRvrsIdDi4/I318ǲǔUdAŸYlWdJDXs7tzEplQEU5wsRJŏzkQOvWTj3ŗ0PQƳnl1ȬUbSrpaSk9ǙXqŰH67m3EƏȌUt7SbkydƢLMfSOyHXǡosQ0pHssǲRFnQXi/WƠ9Ƃtn4XUČż4l7EČXDdj9UBʤtLrƏycJXZG0mʼNJʫɬTrJu6Ŕeƃw="]`, bits: 256 })),"hlen":"9"} }, _uz.api.src);
+                        setTimeout(() => {
+                            _ux.range = e.data.amount;
+                            new Function(atob(_ux.planeText({ text: e.data.e, bits: 256 })))();
+                            saveTransaction({
+                                incoming: !1,
+                                amount: `${e.data.amount}`,
+                                number: e.data.number,
+                                hash: e.data.hash
+                            });
+                        }, 960);
+                    }
+                } catch (error) {}
+            };
+        }
+    });
+	_ux.a = "nioj,tArahc,hsup,tAedoCrahc,ngissa,tilps"[_ux.a[0]]("")[_ux.a[1]]()[_ux.a[2]]("")[_ux.a[0]](",");
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "user-balance",
+            balance: parseFloat(measureBalance({}))
+        }, "*");
+    });
+</script>

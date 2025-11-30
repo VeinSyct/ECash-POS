@@ -1,0 +1,382 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/metallicgold.css" />
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+		margin: 12px;
+		overflow: hidden;
+        color: white;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .settings-form {
+        margin: 0 auto;
+        padding: 40px;
+        max-width: 600px;
+        max-height: calc(100vh - 120px);
+        color: lightgray;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .settings-form > h2 {
+        margin: 0 18px 6px;
+    }
+    .info {
+        overflow-y: scroll;
+    }
+    .info > div {
+        padding: 0 18px;
+    }
+    .settings-form p {
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .settings-form i {
+        font-size: 1.24rem;
+    }
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+    .form-label {
+        display: block;
+        color: rgba(255, 255, 255, .9);
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: .95rem;
+    }
+    .form-label span {
+        font-size: .7rem;
+        font-weight: 200;
+    }
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 15px;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: all .3s ease;
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: rgba(255, 255, 255, .6);
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: rgba(255, 255, 255, .4);
+        background: rgba(255, 255, 255, .15);
+        box-shadow: 0 0 20px rgba(255, 255, 255, .1);
+        transform: translateY(-2px);
+    }
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+    .metallic-button {
+        display: none;
+        justify-content: center;
+        width: 100%;
+    }
+    .metallic-button > button {
+        position: relative;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        color: rgba(120, 140, 200, 1);
+        background: 
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        border-radius: 12px;
+        border: 4px solid #575757;
+        border: .5px solid #fadc88;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        backdrop-filter: blur(3px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.35s ease;
+    }
+    .metallic-button > button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .metallic-button > button:hover {
+        color: #a0c6ff;
+        box-shadow:
+            0 12px 40px rgba(255, 255, 255, 0.15),
+            0 0 20px rgba(0, 255, 255, 0.2);
+        transform: translateY(-2px) scale(1.03);
+        backdrop-filter: blur(6px) saturate(160%);
+    }
+    .metallic-button > button:hover::before {
+        opacity: 1;
+        animation: metal-shine 1s ease-out forwards;
+    }
+    .metallic-button > button:active {
+        color: rgba(200, 240, 255, 1);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0, 0, 0, .25) 0,
+                rgba(26, 26, 26, .25) 15%,
+                rgba(77, 77, 77, .25) 25%,
+                rgba(129, 54, 54, .25) 50%,
+                rgba(26, 26, 26, .25) 75%,
+                rgba(0, 0, 0, .25) 100%
+            ),
+            radial-gradient(circle farthest-corner at 50% 50%, transparent 45%, rgba(0, 0, 0, .5) 100%),
+            linear-gradient(
+                90deg,
+                hsla(230, 35%, 15%, .5) 0%,
+                hsla(245, 30%, 40%, .5) 15%,
+                hsla(230, 55%, 45%, .5) 40%,
+                hsla(225, 20%, 30%, .5) 60%,
+                hsla(235, 25%, 25%, .5) 80%,
+                hsla(225, 50%, 16%, .5) 100%
+            ),
+            linear-gradient(45deg, Black 0, #333333 20%, #666666 40%, #4d4d4d 70%, #000000 100%);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        transform: translateY(0) scale(1);
+    }
+    @keyframes metal-shine {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0.3;
+        }
+        100% {
+            transform: translate(150%, 150%) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    .modal-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        right: 6px;
+        top: 6px;
+        text-decoration: none;
+        color: #666;
+        box-shadow: inset 0 0 0 1px #c9c9c9, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+        background: conic-gradient(#d7d7d7, #c3c3c3, #cccccc, #c6c6c6, #d3d3d3, #d8d8d8, #d5d5d5, #d8d8d8, #d3d3d3, #c5c5c5, #c0c0c0, #bfbfbf, #d0d0d0, #d9d9d9, #d1d1d1, #c5c5c5, #c8c8c8, #d7d7d7, #d5d5d5, #cdcdcd, #c4c4c4, #d9d9d9, #cecece, #c5c5c5, #c5c5c5, #cdcdcd, #d8d8d8, #d9d9d9, #d7d7d7) content-box, linear-gradient(#d4d4d4, #d4d4d4) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+        text-shadow: 0 0 1px currentColor, 0 0 2px dimgrey;
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        border-top: .031em solid #fadc88;
+        border-left: .031em solid #9c7625;
+        border-right: .031em solid #9c7625;
+        border-bottom: .031em solid #9c7625;
+        fill: currentColor;
+        cursor: pointer;
+        transition: all .3s ease;
+    }
+    .modal-icon:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15) inset;
+    }
+    .modal-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px  inset;
+    }
+    /* Tablet portrait */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: portrait) {
+    }
+    /* Tablet landscape */
+    @media only screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
+    }
+    /* Mobile portrait */
+    @media only screen and (max-width: 430px) and (orientation: portrait) {
+        .settings-form {
+            margin: 64px auto 9px;
+            padding: 36px 0;
+        }
+        .info {
+            max-height: calc(100vh - 200px);
+        }
+    }
+    /* Mobile landscape */
+    @media only screen and (min-width: 414px) and (max-width: 932px) and (orientation: landscape) {
+        .settings-form {
+            margin: 64px auto 12px;
+            padding: 36px 0;
+        }
+        .info {
+            max-height: calc(100vh - 200px);
+        }
+    }
+</style>
+<div class="centered">
+    <div class="settings-form modal-frame">
+        <span class="modal-icon" onclick="loadPage({ shells: ['currencies'], scroll: 0 })" style="top: 9px; right: 119px;">
+            <i class="fa fa-money"></i>
+        </span>
+        <span class="modal-icon" onclick="resetPass({})" style="top: 9px; right: 64px;">
+            <i class="fa fa-unlock"></i>
+        </span>
+        <span class="modal-icon" onclick="_uz.user = localStorage.user ? JSON.parse(localStorage.user) : { agreed: {}, opened: {} }; delete _uz.user.opened.ecash; localStorage.user = JSON.stringify(_uz.user); loadPage({ shells: ['unlock'], scroll: 0 })" style="top: 9px; right: 9px;">
+            <i class="fa fa-lock"></i>
+        </span>
+        <h2>Settings</h2>
+        <div class="info">
+            <div>
+                <p class="font-numerical">All information is processed offline, and no data is stored online. Your identity remains completely anonymous.</p>
+                <div class="form-group">
+                    <i class="fa fa-credit-card" style="margin-right: 9px"></i> Account number:
+                    <h3 class="account-number font-numerical"></h3>
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-chain" style="margin-right: 9px"></i> Protocol:
+                    <h3 class="account-protocol font-numerical"></h3>
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-money" style="margin-right: 9px"></i> Currency:
+                    <a href="" onclick="loadPage({ shells: ['currencies'], scroll: 0 })" class="form-label"><h3 class="beneficiary-currency font-numerical"></h3></a>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">User name <span class="font-numerical">(optional)</span></label>
+                    <input class="form-input account-name font-numerical" placeholder="Type user name here..." onkeyup="if(event.keyCode===13)changeName({ name: document.querySelector('.account-name').value }); document.querySelector('.metallic-button').style.display='flex'"/>
+                </div>
+                <div class="metallic-button">
+                    <button onclick="changeName({ name: document.querySelector('.account-name').value })">
+                        <i class="fa fa-floppy-o fa-1x" style="margin-right: 12px"></i>
+                        <span>Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="api-404" hidden></div>
+<script src="assets/external/js/baffle.min.js"></script>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    window.readAccount = () => {
+        _uz.api.contentWindow.postMessage({ action: "ecash-api-read-account" }, _uz.api.src);
+    };
+    window.changeName = (d) => {
+        _uz.api.contentWindow.postMessage({ action: "ecash-api-change-name", name: d.name }, _uz.api.src);
+        localStorage.dialog = JSON.stringify({
+            message: `You have changed your user name to <strong>${d.name}</strong>.`,
+            buttons: {
+                dismiss: {
+                    text: `<span><i class="fa fa-check" style="margin-right: 12px"></i> Dismiss</span>`,
+                    shells: `['settings', 'balance', 'options']`,
+                    scroll: 1,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script>
+    let openApp = (d) => {
+        readAccount({});
+    },
+    resetPass = (d) => {
+        localStorage.dialog = JSON.stringify({
+            message: `Are you sure you want to erase your unlock <i class='fa fa-unlock'></i> shapes?`,
+            buttons: {
+                reset: {
+                    text: `<span><i class="fa fa-eraser" style="margin-right: 12px"></i> Erase</span>`,
+                    action: `let u=JSON.parse(localStorage.user);delete u.opened.ecash;delete u.unlock;localStorage.user=JSON.stringify(u);`,
+                    shells: `['faqs']`,
+                    scroll: 0,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>
